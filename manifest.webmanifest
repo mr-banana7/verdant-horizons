@@ -1,0 +1,22 @@
+{
+  "name": "Verdant Horizons — APEX Edition",
+  "short_name": "VH Mercati",
+  "description": "Quotazioni Prosperous Universe da FIO",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#111e30",
+  "theme_color": "#203451",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
