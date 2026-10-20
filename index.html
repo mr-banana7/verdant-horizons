@@ -27,7 +27,75 @@ details.book summary{color:var(--apex-orange)} details.book[open] summary{color:
 .chart-note{color:#b4c8d9}
 @media(max-width:620px){body{padding:12px}.panel{padding:13px}.tabs button{font-size:.81rem;padding:10px 3px}h1{font-size:1.45rem}}
 #productionView .recipe-card{background:#203954;border:1px solid #3c5871;border-radius:6px;padding:12px;margin:10px 0}#productionView .recipe-card h3{font-size:1rem;margin:0 0 8px;color:#ffd37a}#productionView .recipe-card .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}#productionView .recipe-card .stats span{font-size:.84rem;background:#172b42;padding:8px;border-radius:4px}#productionView .recipe-card details{margin-top:8px}#productionView .recipe-card summary{color:#ffbd4c;cursor:pointer}#productionView .recipe-card .muted{font-size:.84rem}#productionView .recipe-card .incomplete{color:#ffd37a}#productionView .recipe-card ul{padding-left:20px}#productionView .recipe-card li{margin:5px 0}.tabs{overflow-x:auto}.tabs button{min-width:66px;white-space:nowrap;font-size:.75rem}#productionView input,#productionView select{max-width:100%}#prodResults{max-height:none}
-#productionView .recipe-section{margin:16px 0 24px}#productionView .recipe-section>h3{font-size:1.08rem;color:#ffd37a;margin:0 0 4px}#productionView .recipe-section>p{margin:0 0 10px}#productionView .recipe-section .recipe-card{margin:10px 0}#productionView .recipe-empty{padding:12px;border:1px solid #3c5871;border-radius:6px;color:#a7b8c8}</style></head><body><h1>Verdant Horizons <span style="font-size:.8rem;color:#a7b8c8;font-weight:400">v19 · APEX Edition</span></h1><p class="sub">Mercati e produzione · Prosperous Universe · FIO</p><section class="panel"><div class="controls"><label for="exchange">Exchange<select id="exchange"><option value="">Carica elenco mercati con Aggiorna</option></select></label><button id="update">Aggiorna</button><button id="export" class="secondary" disabled>Scarica CSV</button></div><div id="status" role="status">Premi «Aggiorna» per identificare i mercati e caricare le quotazioni pubbliche FIO.</div><div class="kpis"><span id="n">Prodotti: —</span><span id="date">Scaricato: —</span><span id="age">Data prezzi FIO: non disponibile</span></div></section><div class="tabs" role="tablist" aria-label="Schermate"><button id="tabMarkets" role="tab" aria-selected="true">Mercati</button><button id="tabAnalysis" role="tab" aria-selected="false">Analisi</button><button id="tabTest" role="tab" aria-selected="false">ADV</button><button id="tabProduction" role="tab" aria-selected="false">PROD</button><button id="tabFx" role="tab" aria-selected="false">Cambi</button></div><div id="marketsView"><section class="panel"><b>Confronto fra Exchange</b><p class="muted">Scegli un materiale per visualizzare Bid, Ask e quantità aggregate in tutti i mercati FIO. Prezzi espressi nella <strong>valuta propria di ciascun Exchange</strong>.</p><label for="filter">Cerca materiale (nome inglese o codice)</label><input id="filter" type="search" placeholder="Protein Beans, Basic Rations, BEA, H2O…"><label for="materialPick">Materiale da confrontare</label><select id="materialPick"><option value="">Carica i prezzi con Aggiorna</option></select><div id="comparison" class="price-grid"><div class="muted-box">Nessun dato caricato.</div></div><p class="micro-note">Bid: vendi · Ask: compri. Valute diverse non sono confrontabili senza un tasso verificato.</p></section></div><div id="analysisView" class="none"><section class="panel"><b>Analisi di mercato</b><label for="analysisMaterial">Prodotto da analizzare<select id="analysisMaterial"><option value="">Carica i prezzi con Aggiorna</option></select></label><div class="analysis-summary" id="analysisMetrics"><div class="muted-box">Carica i dati per vedere gli indicatori.</div></div><div class="panel"><b>Confronto per materiale</b><div id="analysisChart" class="scroll"></div></div><div class="panel"><b id="historyHeading">Storico del materiale selezionato</b><p class="micro-note">Volumi reali giornalieri; orari delle singole transazioni non disponibili.</p><button id="historyLoad" class="secondary" disabled>Ricarica storico CXPC</button><div class="segment" id="historyPeriods"><button class="secondary active" data-days="7">7 giorni</button><button class="secondary" data-days="30">30 giorni</button><button class="secondary" data-days="90">90 giorni</button></div><button id="historyCsv" class="secondary" disabled>Esporta CSV storico</button><div id="historyInfo" class="hint" style="margin-top:10px">Premi Aggiorna per caricare prezzi e storico.</div><div id="historyResults" class="scroll"></div></div></section></div><div id="testView" class="none"><section class="panel"><b>Analisi avanzata</b><p class="micro-note">Grafici basati sugli scambi registrati da FIO.</p><label for="advMaterial">Prodotto da analizzare<select id="advMaterial"><option value="">Carica i prezzi con Aggiorna</option></select></label><label for="advDays">Periodo di analisi<select id="advDays"><option value="7">Ultimi 7 giorni</option><option value="15">Ultimi 15 giorni</option><option value="30">Ultimi 30 giorni</option><option value="45">Ultimi 45 giorni</option><option value="60">Ultimi 60 giorni</option><option value="90">Ultimi 90 giorni</option></select></label><div class="segment"><button data-graph="volume" class="active">Area · Quantità</button><button data-graph="price" class="secondary">Linea · Prezzo medio</button><button data-graph="value" class="secondary">Colonne · Valore scambiato</button></div><div id="testMeta" class="hint">Premi Aggiorna per caricare prezzi e storico.</div><div id="testGraph"></div></section></div><div id="productionView" class="none"><section class="panel"><b>Ricette e simulatore</b><p class="micro-note">Ricette FIO per tutti gli edifici. Prezzi locali del mercato selezionato; acquisti valorizzati Ask, vendite Bid. Non comprende salari, consumabili, trasporti e commissioni di vendita.</p><div class="row"><label>Edificio<select id="prodBuilding"><option value="">Tutti gli edifici</option></select></label><label>Cerca materiale o ricetta<input id="prodSearch" type="search" placeholder="BEA, RAT, Protein Beans…"></label></div><div class="row"><label>Edifici attivi<input id="prodCount" type="number" min="1" max="500" value="1"></label><label>Efficienza produttiva (%)<input id="prodEfficiency" type="number" min="1" max="500" value="100"></label><label>Cicli per edificio<input id="prodCycles" type="number" min="1" max="999" value="1"></label></div><div class="row"><label>Commissione produttiva per ciclo (valuta Exchange)<input id="prodFee" type="number" min="0" step="0.01" value="0"></label><label>Ordina per<select id="prodSort"><option value="marginHour">Margine/ora (decrescente)</option><option value="margin">Margine/ciclo</option><option value="name">Nome prodotto</option></select></label></div><div id="prodStatus" class="muted-box">Premi Aggiorna per scaricare tutte le ricette FIO.</div><div id="prodSummary" class="analysis-summary"></div><div id="prodResults"></div></section></div><div id="fxView" class="none"><section class="panel"><b>Cambi tra valute del gioco</b><p class="micro-note">Tassi manuali: consulta <strong>FX</strong> o <strong>FXP ICA/AIC</strong> su APEX. Nessun tasso viene aggiornato automaticamente.</p><div class="row"><label>Valuta di partenza<select id="fxFrom"><option>ICA</option><option>AIC</option><option>CIS</option><option>NCC</option></select></label><label>Valuta di arrivo<select id="fxTo"><option>AIC</option><option>ICA</option><option>CIS</option><option>NCC</option></select></label></div><div class="row"><label>Importo<input id="fxAmount" type="number" min="0" step="any" value="1000"></label><label>Tasso inserito da te (1 unità di partenza = ... di arrivo)<input id="fxRate" type="number" min="0" step="any" placeholder="Leggi il prezzo su APEX FX"></label></div><button id="fxCalculate" class="secondary">Calcola</button><p id="fxResult" class="micro-note">Inserisci un tasso verificato su APEX.</p><p class="micro-note">Calcolo indicativo: spread e commissioni esclusi.</p></section></div><section class="panel"><b>Informazioni sui dati</b><p class="micro-note">Fonte: <a href="https://doc.fnar.net/" target="_blank" rel="noopener">FIO</a>. «Scaricato» indica l’ora della richiesta, non l’ultimo aggiornamento del mercato. CSV: tutti i prodotti dell’Exchange selezionato. Nessuna operazione viene eseguita nel gioco.</p></section>
+#productionView .recipe-section{margin:16px 0 24px}#productionView .recipe-section>h3{font-size:1.08rem;color:#ffd37a;margin:0 0 4px}#productionView .recipe-section>p{margin:0 0 10px}#productionView .recipe-section .recipe-card{margin:10px 0}#productionView .recipe-empty{padding:12px;border:1px solid #3c5871;border-radius:6px;color:#a7b8c8}
+/* APEX Edition v20: mobile-first layout and navigation */
+:root{font-size:15px;font-family:Inter,Roboto,"Segoe UI",system-ui,-apple-system,sans-serif;font-synthesis:none}
+body{max-width:1180px;padding:14px 18px 36px;line-height:1.45}
+body>h1{font-size:clamp(1.18rem,3.5vw,1.48rem);letter-spacing:.026em;margin:13px 0 4px;font-weight:800}
+body>h1 span{font-size:.69rem!important;white-space:nowrap}
+.sub{font-size:.79rem;margin-bottom:12px;letter-spacing:0}
+.panel{padding:15px;margin:12px 0;box-shadow:0 3px 12px #08132428}
+.panel>b{display:block;font-size:1rem;line-height:1.35;margin-bottom:10px;color:#f0f6fc}
+.panel .panel>b{font-size:.94rem}
+.quote strong{font-size:.99rem;overflow-wrap:anywhere}
+.analysis-summary .quote strong{font-size:1.13rem}
+label{font-size:.85rem;line-height:1.4}
+button{font-size:.85rem;padding:10px 12px;font-weight:720;letter-spacing:.015em}
+input,select{font-size: .93rem;min-height:43px;padding:9px 10px}
+.kpis span{font-size:.75rem;padding:7px 9px}
+.mini,.hint,.micro-note{font-size:.79rem}
+#productionView .recipe-card h3{font-size:.94rem;line-height:1.4}
+#productionView .recipe-card .stats span{font-size:.79rem;padding:9px;overflow-wrap:anywhere}
+#productionView .recipe-section>h3{font-size:.99rem}
+.graphrow{font-size:.75rem}
+.tabs{display:none!important}
+.app-topbar{display:flex;align-items:center;gap:12px;min-height:49px;margin:-5px 0 10px;padding:6px 0 10px;border-bottom:1px solid #405b74}
+.menu-toggle{display:flex;align-items:center;justify-content:center;gap:8px;min-width:92px;min-height:40px;white-space:nowrap;border-color:#536f87;box-shadow:none}
+.menu-toggle span:first-child{font-size:1.12rem;line-height:1}
+.app-top-label{font-size:.86rem;font-weight:850;letter-spacing:.07em;line-height:1.15;white-space:nowrap}
+.app-top-label em{font-style:normal;color:#f5a900}
+.app-top-label small{font-size:.62rem;letter-spacing:.12em;margin:3px 0 0;color:#94b4ca}
+.app-top-right{margin-left:auto;font-size:.68rem;font-weight:650;color:#9dbacc;white-space:nowrap}
+.nav-shade{position:fixed;inset:0;background:#040a12a8;z-index:199}
+.nav-drawer{position:fixed;top:0;bottom:0;left:0;width:min(310px,86vw);background:#152740;border-right:1px solid #425e7a;z-index:200;transform:translateX(-102%);visibility:hidden;transition:transform .18s ease,visibility .18s ease;padding:18px 14px;box-shadow:12px 0 32px #02081566;display:flex;flex-direction:column}
+.nav-drawer.open{transform:translateX(0);visibility:visible}
+.nav-head{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#eaf4fb;font-size:.98rem;letter-spacing:.025em;padding-bottom:18px;border-bottom:1px solid #35526d}
+.nav-close{font-size:1rem;min-width:40px;min-height:40px}
+.nav-caption{margin:19px 7px 11px;color:#91b1c6;font-size:.68rem;font-weight:800;letter-spacing:.13em}
+.nav-list{display:grid;gap:7px}.nav-list button{display:flex;text-align:left;align-items:center;gap:14px;background:#203854;color:#ecf5fc;border:1px solid #385471;box-shadow:none;min-height:51px;font-size:1rem;text-transform:none;padding:11px 15px}
+.nav-list button span{font-weight:670}.nav-list button[aria-current="page"]{background:#eaa300;color:#152237;border-color:#f7b31a}
+.nav-foot{margin-top:auto;border-top:1px solid #36516c;padding-top:16px;font-size:.75rem;color:#9db6c8}
+#status{font-size:.83rem}#prodStatus{font-size:.83rem}
+@media(max-width:620px){body{padding:9px 10px 26px}.app-topbar{gap:9px}.app-top-label{font-size:.75rem;letter-spacing:.03em}.app-top-right{display:none}.menu-toggle{min-width:82px;padding:8px}.panel{padding:12px}.row>*{min-width:min(100%,155px)}.controls{gap:7px}.controls button{font-size:.78rem;padding:10px 6px}.analysis-summary{grid-template-columns:repeat(2,minmax(0,1fr))}#productionView .recipe-card .stats{gap:6px}}
+@media(prefers-reduced-motion:reduce){.nav-drawer{transition:none}}
+
+/* v21 planner and profiles */
+.plan-list{margin-top:12px;display:grid;gap:8px}.plan-entry{padding:11px;border:1px solid #3b5a75;background:#1a3048;border-radius:5px;font-size:.85rem;overflow-wrap:anywhere}.plan-entry .row{align-items:center}.plan-entry button{font-size:.74rem;padding:7px 9px;flex:0;min-width:unset}.plan-entry .row>span{flex:1;min-width:0}.plan-entry strong{color:#f1c36a}.plan-alert{border-color:#c46a5b;background:#3c2935}.plan-good{border-color:#497c65}#plannerView .panel>.panel,#profilesView .panel>.panel{padding:12px;margin:12px 0}#plannerView input:not([type="checkbox"]),#profilesView input{margin-bottom:9px}#plannerView input[type="checkbox"]{width:auto}#planRecipeCount{display:block;margin-top:4px}#planCustomFields[hidden]{display:none}.plan-entry small{margin:3px 0 0}#navDrawer{overflow-y:auto}
+#dashboardView .dash-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}#dashboardView .dash-kpi{background:#162a40;padding:12px;border:1px solid #385772;border-radius:6px}#dashboardView .dash-kpi small{display:block;color:#a9c2d3;font-size:.75rem}#dashboardView .dash-kpi strong{display:block;font-size:1.12rem;margin-top:6px;overflow-wrap:anywhere}#dashboardView .dash-total{border-color:#dba032}#dashboardView .dash-loss{border-color:#cf7b6e}#dashboardView .dash-unknown{color:#f4ba71}#dashboardView .dash-lines-row{display:flex;align-items:center;gap:10px;justify-content:space-between}#dashboardView .dash-lines-row button{min-width:unset;flex:0}#dashboardView .dash-table{overflow-x:auto}#dashboardView .dash-table table{width:100%;min-width:480px;font-size:.81rem}#dashboardView .dash-table th,#dashboardView .dash-table td{padding:8px;text-align:right}#dashboardView .dash-table th:first-child,#dashboardView .dash-table td:first-child{text-align:left}@media(max-width:480px){#dashboardView .dash-kpi strong{font-size:1rem}#dashboardView .panel>.panel{padding:11px}}
+.plan-entry .row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}.plan-entry .row>button{flex:0 0 auto!important;width:auto!important;min-width:92px!important;white-space:nowrap!important;overflow-wrap:normal!important;word-break:keep-all!important}.plan-entry .row>span{min-width:160px;flex:1 1 220px}
+
+/* v33: preliminary FIO read-only connection (session-memory secret only) */
+.fio-connection{border-color:#44617c!important}
+.fio-connection input[type=password]{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.05em;font-size:1rem;min-width:0}
+.fio-buttons{display:flex;gap:9px;flex-wrap:wrap;align-items:stretch}
+.fio-buttons button{flex:1 1 200px;min-width:0;overflow-wrap:anywhere;white-space:normal}
+.fio-live-status{line-height:1.55;margin-top:10px}
+.fio-data-status{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px;margin:12px 0}
+.fio-result{padding:12px;background:#192d44;border:1px solid #37536e;border-radius:9px;min-width:0;overflow-wrap:anywhere}
+.fio-result strong{display:block;color:#f2ad35;margin-bottom:5px}
+.fio-result small{margin:5px 0 0;font-size:.75rem;color:#adc5d8}
+</style></head><body><div class="app-topbar"><button id="menuToggle" class="menu-toggle secondary" aria-label="Apri menu di navigazione" aria-controls="navDrawer" aria-expanded="false"><span aria-hidden="true">☰</span><span>Menu</span></button><div class="app-top-label">VERDANT <em>HORIZONS</em><small>APEX EDITION · v23</small></div><span class="app-top-right">FIO · MARKET</span></div>
+<div id="navShade" class="nav-shade" hidden></div><aside id="navDrawer" class="nav-drawer" aria-label="Navigazione principale" aria-hidden="true"><div class="nav-head"><strong>VERDANT HORIZONS</strong><button id="menuClose" class="secondary nav-close" aria-label="Chiudi menu">✕</button></div><div class="nav-caption">STRUMENTI</div><nav class="nav-list"><button data-nav="tabDashboard">▣ <span>Dashboard</span></button><button data-nav="tabMarkets" aria-current="page">▦ <span>Mercati</span></button><button data-nav="tabAnalysis">▥ <span>Analisi</span></button><button data-nav="tabTest">▤ <span>ADV · Grafici</span></button><button data-nav="tabProduction">⚙ <span>PROD · Ricette</span></button><button data-nav="tabPlanner">◷ <span>Planner · Code</span></button><button data-nav="tabProfiles">▣ <span>Profili e preferiti</span></button><button data-nav="tabFx">⇄ <span>Cambi</span></button></nav><div class="nav-foot">Dati pubblici FIO · Strumento non ufficiale</div></aside><h1>Verdant Horizons <span style="font-size:.8rem;color:#a7b8c8;font-weight:400">v33 · APEX Edition</span></h1><p class="sub">Mercati e produzione · Prosperous Universe · FIO</p><section class="panel"><div class="controls"><label for="exchange">Exchange<select id="exchange"><option value="">Carica elenco mercati con Aggiorna</option></select></label><button id="update">Aggiorna</button><button id="export" class="secondary" disabled>Scarica CSV</button></div><div id="status" role="status">Premi «Aggiorna» per identificare i mercati e caricare le quotazioni pubbliche FIO.</div><div class="kpis"><span id="n">Prodotti: —</span><span id="date">Scaricato: —</span><span id="age">Data prezzi FIO: non disponibile</span></div></section><div class="tabs" role="tablist" aria-label="Schermate"><button id="tabDashboard" role="tab" aria-selected="false">Dashboard</button><button id="tabBilancio" role="tab" aria-selected="false">Bilancio</button><button id="tabMarkets" role="tab" aria-selected="true">Mercati</button><button id="tabAnalysis" role="tab" aria-selected="false">Analisi</button><button id="tabTest" role="tab" aria-selected="false">ADV</button><button id="tabProduction" role="tab" aria-selected="false">PROD</button><button id="tabPlanner" role="tab" aria-selected="false">Planner</button><button id="tabProfiles" role="tab" aria-selected="false">Profili</button><button id="tabFx" role="tab" aria-selected="false">Cambi</button></div><div id="dashboardView" class="none"><section class="panel"><b>Bilancio · Analisi economica</b><p class="micro-note">Bilancio di scenario. Carica le ricette e le quotazioni FIO, seleziona un profilo aziendale e aggiungi le produzioni da simulare. Le spese sono stime inserite da te: nessun valore è spacciato per un costo aziendale reale.</p><div class="row"><label>Profilo aziendale<select id="dashProfile"><option value="">Scenario senza profilo</option></select></label><label>Periodo<select id="dashPeriod"><option value="hour">Ora</option><option value="day" selected>Giorno</option><option value="week">7 giorni</option><option value="month">30 giorni</option><option value="minute">Minuto</option></select></label></div><div id="companyContext" class="panel"><b>Profilo operativo</b><div id="companyContextInfo" class="micro-note">Seleziona un profilo per mostrare scorte, code e edifici.</div><div class="row"><button id="companyOpenPlanner" class="secondary">Apri Planner</button><button id="companyOpenProfiles" class="secondary">Gestisci profili</button></div></div><div id="dashDataStatus" class="muted-box">Premi Aggiorna per caricare prezzi e ricette.</div><div class="panel" id="dashCompanySync"><b>Collega il profilo aziendale</b><p class="micro-note">Edifici dal profilo e produzioni del Planner sono due fonti distinte. Puoi importare una copia delle ricette FIO e delle produzioni manuali del Planner nello scenario economico, senza modificare le code reali. Verifica sempre durata ed efficienza: questa analisi è teorica.</p><div id="dashCompanyFacilities" class="muted-box">Seleziona un profilo con edifici registrati.</div><div id="dashPlannerReview" class="micro-note"></div><div class="row"><button id="dashImportPlanner" class="secondary">Copia ricette dal Planner</button><button id="dashClearScenario" class="secondary">Svuota scenario</button></div></div><div class="panel"><b>Produzioni nello scenario</b><p class="micro-note">Ogni riga rappresenta una linea o un gruppo di edifici identici. I cicli al giorno sono una stima teorica dalle ore della ricetta e dall’efficienza: non simulano blocchi o scorte. Non contare due volte materie prime prodotte internamente come se fossero acquistate e vendute.</p><div class="row"><label>Ricetta<select id="dashRecipe"><option value="">Carica ricette FIO</option></select></label><label>Numero edifici<input id="dashCount" type="number" min="1" max="1000" value="1"></label><label>Efficienza (%)<input id="dashEfficiency" type="number" min="1" max="500" value="100"></label></div><button id="dashAdd">Aggiungi produzione</button><div id="dashLines" class="plan-list"></div></div><div class="panel"><b>Spese aggiuntive giornaliere</b><p class="micro-note">Compila solo costi NON già inclusi nei prezzi delle materie prime. I valori vengono salvati per lo scenario aziendale.</p><div class="row"><label>Salari e consumabili<input id="dashWages" type="number" min="0" step="0.01" value="0"></label><label>Carburante e trasporto<input id="dashTransport" type="number" min="0" step="0.01" value="0"></label><label>Commissioni produttive e commerciali<input id="dashFees" type="number" min="0" step="0.01" value="0"></label><label>Altre spese<input id="dashOther" type="number" min="0" step="0.01" value="0"></label></div></div><div id="dashSummary" class="analysis-summary"></div><div id="dashBreakdown" class="panel"></div><p class="micro-note">Modello a prezzi di mercato: input agli Ask e output ai Bid dell’Exchange selezionato. È un margine potenziale, non il flusso di cassa. I prodotti intermedi condivisi richiedono una contabilizzazione distinta, da integrare nel motore avanzato. Cambio tra valute non applicato.</p></section></div><div id="marketsView"><section class="panel"><b>Confronto fra Exchange</b><p class="muted">Scegli un materiale per visualizzare Bid, Ask e quantità aggregate in tutti i mercati FIO. Prezzi espressi nella <strong>valuta propria di ciascun Exchange</strong>.</p><label for="filter">Cerca materiale (nome inglese o codice)</label><input id="filter" type="search" placeholder="Protein Beans, Basic Rations, BEA, H2O…"><label for="materialPick">Materiale da confrontare</label><select id="materialPick"><option value="">Carica i prezzi con Aggiorna</option></select><div id="comparison" class="price-grid"><div class="muted-box">Nessun dato caricato.</div></div><p class="micro-note">Bid: vendi · Ask: compri. Valute diverse non sono confrontabili senza un tasso verificato.</p></section></div><div id="analysisView" class="none"><section class="panel"><b>Analisi di mercato</b><label for="analysisMaterial">Prodotto da analizzare<select id="analysisMaterial"><option value="">Carica i prezzi con Aggiorna</option></select></label><div class="analysis-summary" id="analysisMetrics"><div class="muted-box">Carica i dati per vedere gli indicatori.</div></div><div class="panel"><b>Confronto per materiale</b><div id="analysisChart" class="scroll"></div></div><div class="panel"><b id="historyHeading">Storico del materiale selezionato</b><p class="micro-note">Volumi reali giornalieri; orari delle singole transazioni non disponibili.</p><button id="historyLoad" class="secondary" disabled>Ricarica storico CXPC</button><div class="segment" id="historyPeriods"><button class="secondary active" data-days="7">7 giorni</button><button class="secondary" data-days="30">30 giorni</button><button class="secondary" data-days="90">90 giorni</button></div><button id="historyCsv" class="secondary" disabled>Esporta CSV storico</button><div id="historyInfo" class="hint" style="margin-top:10px">Premi Aggiorna per caricare prezzi e storico.</div><div id="historyResults" class="scroll"></div></div></section></div><div id="testView" class="none"><section class="panel"><b>Analisi avanzata</b><p class="micro-note">Grafici basati sugli scambi registrati da FIO.</p><label for="advMaterial">Prodotto da analizzare<select id="advMaterial"><option value="">Carica i prezzi con Aggiorna</option></select></label><label for="advDays">Periodo di analisi<select id="advDays"><option value="7">Ultimi 7 giorni</option><option value="15">Ultimi 15 giorni</option><option value="30">Ultimi 30 giorni</option><option value="45">Ultimi 45 giorni</option><option value="60">Ultimi 60 giorni</option><option value="90">Ultimi 90 giorni</option></select></label><div class="segment"><button data-graph="volume" class="active">Area · Quantità</button><button data-graph="price" class="secondary">Linea · Prezzo medio</button><button data-graph="value" class="secondary">Colonne · Valore scambiato</button></div><div id="testMeta" class="hint">Premi Aggiorna per caricare prezzi e storico.</div><div id="testGraph"></div></section></div><div id="productionView" class="none"><section class="panel"><b>Ricette e simulatore</b><p class="micro-note">Ricette FIO per tutti gli edifici. Prezzi locali del mercato selezionato; acquisti valorizzati Ask, vendite Bid. Non comprende salari, consumabili, trasporti e commissioni di vendita.</p><div class="row"><label>Edificio<select id="prodBuilding"><option value="">Tutti gli edifici</option></select></label><label>Cerca materiale o ricetta<input id="prodSearch" type="search" placeholder="BEA, RAT, Protein Beans…"></label></div><div class="row"><label>Edifici attivi<input id="prodCount" type="number" min="1" max="500" value="1"></label><label>Efficienza produttiva (%)<input id="prodEfficiency" type="number" min="1" max="500" value="100"></label><label>Cicli per edificio<input id="prodCycles" type="number" min="1" max="999" value="1"></label></div><div class="row"><label>Commissione produttiva per ciclo (valuta Exchange)<input id="prodFee" type="number" min="0" step="0.01" value="0"></label><label>Ordina per<select id="prodSort"><option value="marginHour">Margine/ora (decrescente)</option><option value="margin">Margine/ciclo</option><option value="name">Nome prodotto</option></select></label></div><div id="prodStatus" class="muted-box">Premi Aggiorna per scaricare tutte le ricette FIO.</div><div id="prodSummary" class="analysis-summary"></div><div id="prodResults"></div></section></div><div id="plannerView" class="none"><section class="panel"><b>Production Planner · Code e scorte</b><p class="micro-note">Simula gli eventi in ordine temporale. Inserisci le scorte disponibili <strong>adesso</strong>; non sottrarre nuovamente gli ingredienti degli ordini già avviati. Un ordine in lavorazione aggiunge soltanto i prodotti alla fine.</p><label for="planHours">Orizzonte<select id="planHours"><option value="24">24 ore</option><option value="48">48 ore</option><option value="72" selected>72 ore</option></select></label><div class="panel"><b>Magazzino iniziale</b><div class="row"><label>Materiale<input id="planStockTicker" placeholder="H2O" maxlength="16" autocapitalize="characters"></label><label>Quantità<input id="planStockQty" type="number" step="any" min="0" value="0"></label></div><button id="planAddStock" type="button">Imposta scorta</button><div id="plannerCompanyBanner" class="muted-box">Dati locali del profilo attivo.</div><div id="planStockList" class="plan-list"></div></div><div class="panel"><b>Produzioni e code</b><div class="row"><label>Linea / edificio<input id="planLine" placeholder="RIG 1, FRM 2…" maxlength="40"></label><label>Ricerca ricetta / prodotto<input id="planRecipeSearch" type="search" placeholder="Cerca RIG, H2O, BEA…" autocomplete="off"><select id="planRecipe"><option value="">Carica ricette con Aggiorna</option></select><small id="planRecipeCount" class="micro-note">Digita per filtrare le ricette.</small></label></div><div class="panel" style="margin:8px 0 14px"><label><input type="checkbox" id="planCustom" style="width:auto;margin-right:6px"> Produzione manuale (se la ricetta non è presente)</label><div id="planCustomFields" hidden><div class="row"><label>Input, es. 6 H2O<input id="planCustomInputs" placeholder="6 H2O, 1 BEA"></label><label>Output, es. 24 H2O<input id="planCustomOutputs" placeholder="24 H2O"></label></div><p class="micro-note">Quantità per ciclo. Formato: numero + codice materiale, separati da virgola. Per le produzioni già attive gli input sono stati consumati e non vengono sottratti nuovamente.</p></div></div><div class="row"><label>Stato<select id="planState"><option value="queued">In coda · materiali necessari all'avvio</option><option value="active">Già in lavorazione · ingredienti già consumati</option></select></label></div><div class="row"><label id="planDurationLabel">Tempo di produzione (ore:minuti)<input id="planDuration" type="text" inputmode="text" placeholder="Es. 8:50" autocomplete="off"><small class="micro-note">Accetta 8:50, 8h 50m oppure ore decimali (8,83).</small></label><label id="planRepeatLabel">Numero di cicli consecutivi<input id="planRepeat" type="number" min="1" max="30" value="1"></label></div><p class="micro-note">Indica <strong>tempo di produzione</strong> e <strong>numero di cicli complessivi</strong>. Se la produzione è già avviata, il Planner simula <strong>un ciclo completo a partire da ora</strong>. Scrivi i tempi come ore:minuti, senza convertirli in decimali. Gli ordini in coda partono automaticamente dopo quelli precedenti della stessa linea, se i materiali bastano. Ogni linea esegue le proprie produzioni nell’ordine inserito; i cicli consecutivi sono una simulazione della tua pianificazione. Non vengono simulate commissioni e salari.</p><button id="planAddJob">Aggiungi alla linea</button><div id="planJobList" class="plan-list"></div></div><div class="row"><button id="planRun">Analizza le code</button><button id="planClear" class="secondary">Azzera pianificazione</button></div><div id="planSummary" class="muted-box" role="status">Inserisci le scorte e almeno una produzione, poi avvia l'analisi.</div><div id="planTimeline" class="plan-list"></div><p class="micro-note">Simulazione prudenziale: quando eventi diversi dipendono dallo stesso materiale e avvengono nello stesso istante, l’ordine reale di avvio può differire. I blocchi vengono riprovati ai completamenti successivi; l'app non modifica code o magazzini nel gioco.</p></section></div><div id="profilesView" class="none"><section class="panel"><b>Profili aziendali locali</b><p class="micro-note">Puoi salvare più aziende su questo dispositivo. Puoi salvare aziende diverse e collegarti in sola lettura ai dati FIO. La connessione privata rimane facoltativa.</p><div class="row"><label>Nome azienda<input id="profileName" placeholder="Nova Corp" maxlength="60"></label><label>Pianeta / base<input id="profilePlanet" placeholder="Promitor" maxlength="60"></label></div><div class="row"><label>Edifici (testo libero)<input id="profileBuildings" placeholder="FRM ×2, RIG ×2, FP ×1"></label><label>Prodotti seguiti (codici separati da virgole)<input id="profileWatch" placeholder="BEA, H2O, DW, RAT"></label></div><button id="profileSave">Salva profilo</button><div class="panel fio-connection" style="margin:12px 0">
+<b>Collegamento FIO · sola lettura</b>
+<p class="micro-note">Verifica l'accesso alle tue informazioni FIO e controlla se sono disponibili dati su basi, magazzini e produzioni. È un primo test: non modifica automaticamente il Planner e non invia ordini al gioco.</p>
+<label>Username FIO (salvato nel profilo)<input id="profileFioUser" maxlength="80" placeholder="Username FIO, non nome azienda" autocomplete="off"></label>
+<div class="hint" id="fioProfileStatus">Seleziona un profilo aziendale.</div>
+<label>Chiave API FIO · solo lettura · soltanto per questa sessione<input id="fioSessionKey" type="password" autocomplete="off" spellcheck="false" autocapitalize="off" placeholder="Incolla qui la chiave privata, mai in chat"></label>
+<div class="row fio-buttons"><button id="fioTestConnection" type="button">Verifica e leggi dati FIO</button><button id="fioDisconnect" class="secondary" type="button">Scollega</button></div>
+<div class="muted-box fio-live-status" id="fioConnectionStatus" role="status" aria-live="polite">Non collegato. La chiave non viene salvata sul dispositivo e va reinserita quando riapri l'app.</div>
+<div class="fio-data-status" id="fioConnectionResults"></div>
+<p class="micro-note">La chiave è inviata soltanto a https://rest.fnar.net nell'header Authorization, tramite HTTPS. Non è inserita nell'URL, nei profili o nei backup. Usa questa funzione solo nella tua copia affidabile dell'app. Il browser e i dispositivi non sono un archivio di credenziali completamente isolato. In caso di dubbi puoi revocare la chiave dalle impostazioni FIO.</p>
+</div><div class="row"><button id="profileBackup" class="secondary" type="button">Esporta profili e pianificazioni JSON</button><label style="max-width:100%">Importa backup JSON<input id="profileRestore" type="file" accept=".json,application/json"></label></div><div id="profileList" class="plan-list"></div><div class="panel"><b>Watchlist · Quotazioni</b><div id="watchlist" class="plan-list">Carica i mercati per consultare prezzi Bid e Ask.</div></div><p class="micro-note">Dati salvati esclusivamente nel browser di questo dispositivo: cancellando i dati del sito potrebbero andare persi. La connessione di test FIO non importa ancora dati personali nel Planner: verifica prima che gli endpoint restituiscano informazioni valide.</p></section></div><div id="fxView" class="none"><section class="panel"><b>Cambi tra valute del gioco</b><p class="micro-note">Tassi manuali: consulta <strong>FX</strong> o <strong>FXP ICA/AIC</strong> su APEX. Nessun tasso viene aggiornato automaticamente.</p><div class="row"><label>Valuta di partenza<select id="fxFrom"><option>ICA</option><option>AIC</option><option>CIS</option><option>NCC</option></select></label><label>Valuta di arrivo<select id="fxTo"><option>AIC</option><option>ICA</option><option>CIS</option><option>NCC</option></select></label></div><div class="row"><label>Importo<input id="fxAmount" type="number" min="0" step="any" value="1000"></label><label>Tasso inserito da te (1 unità di partenza = ... di arrivo)<input id="fxRate" type="number" min="0" step="any" placeholder="Leggi il prezzo su APEX FX"></label></div><button id="fxCalculate" class="secondary">Calcola</button><p id="fxResult" class="micro-note">Inserisci un tasso verificato su APEX.</p><p class="micro-note">Calcolo indicativo: spread e commissioni esclusi.</p></section></div><section class="panel"><b>Informazioni sui dati</b><p class="micro-note">Fonte: <a href="https://doc.fnar.net/" target="_blank" rel="noopener">FIO</a>. «Scaricato» indica l’ora della richiesta, non l’ultimo aggiornamento del mercato. CSV: tutti i prodotti dell’Exchange selezionato. Nessuna operazione viene eseguita nel gioco.</p></section>
 <script>
 'use strict';const $=id=>document.getElementById(id);const ROOT='https://rest.fnar.net';let historyRows=[],historyKey='',historyDays=30,testMode='volume',historyRequestId=0;let all=[],materials=new Map(),chosenMaterial="",current=[],downloaded='',fioReported='',namesOk=false,loadedMarket='',availableCodes=new Set(),invalidRows=0;
 const money=v=>v===null||v===undefined||v===''?'—':Number(v).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -95,8 +163,8 @@ function selectedRecords(){return all.filter(x=>code(x.MaterialTicker??String(x.
 function drawAnalysis(){const dest=$('analysisMetrics'),chart=$('analysisChart');if(!all.length){dest.innerHTML='<div class="muted-box">Nessun dato caricato.</div>';chart.innerHTML='';return}const rec=selectedRecords();const count=new Set(all.map(x=>code(x.ExchangeCode))).size;dest.innerHTML=`<div class="quote"><div class="mini">Exchange rilevati</div><strong>${count}</strong></div><div class="quote"><div class="mini">Prodotti nel mercato scelto</div><strong>${current.length}</strong></div><div class="quote"><div class="mini">Quotazioni del materiale scelto</div><strong>${rec.length}</strong></div>`;if(!rec.length){chart.innerHTML='<div class="muted-box">Seleziona un materiale.</div>';return}chart.innerHTML='<table><thead><tr><th>Exchange</th><th>Bid</th><th>Ask</th><th>Domanda</th><th>Offerta</th></tr></thead><tbody>'+rec.map(r=>`<tr><td>${escapeHTML(code(r.ExchangeCode))}</td><td>${money(validNum(r.Bid))}</td><td>${money(validNum(r.Ask))}</td><td>${escapeHTML(r.Demand??'—')}</td><td>${escapeHTML(r.Supply??'—')}</td></tr>`).join('')+'</tbody></table><small class="warning">Valute locali diverse: i numeri non rappresentano profitti tra mercati.</small>'}
 $('tabMarkets').onclick=()=>{ $('marketsView').classList.remove('none');$('analysisView').classList.add('none');$('tabMarkets').setAttribute('aria-selected','true');$('tabAnalysis').setAttribute('aria-selected','false')};$('tabAnalysis').onclick=()=>{$('analysisView').classList.remove('none');$('marketsView').classList.add('none');$('tabAnalysis').setAttribute('aria-selected','true');$('tabMarkets').setAttribute('aria-selected','false');drawAnalysis()};
 
-function showTab(name){for(const [id,view] of [['tabMarkets','marketsView'],['tabAnalysis','analysisView'],['tabTest','testView'],['tabProduction','productionView'],['tabFx','fxView']]){const enabled=id===name;$(view).classList.toggle('none',!enabled);$(id).setAttribute('aria-selected',String(enabled));}if(name==='tabTest')drawTest();if(name==='tabProduction')renderProduction();}
-for(const id of ['tabMarkets','tabAnalysis','tabTest','tabProduction','tabFx'])$(id).onclick=()=>showTab(id);
+function showTab(name){for(const [id,view] of [['tabDashboard','dashboardView'],['tabBilancio','bilancioView'],['tabMarkets','marketsView'],['tabAnalysis','analysisView'],['tabTest','testView'],['tabProduction','productionView'],['tabPlanner','plannerView'],['tabProfiles','profilesView'],['tabFx','fxView']]){const enabled=id===name;$(view).classList.toggle('none',!enabled);$(id).setAttribute('aria-selected',String(enabled));}if(name==='tabBilancio'&&typeof renderDashboard==='function')renderDashboard();if(name==='tabDashboard'&&typeof renderHomeSummary==='function')renderHomeSummary();if(name==='tabTest')drawTest();if(name==='tabProduction')renderProduction();}
+for(const id of ['tabBilancio','tabMarkets','tabAnalysis','tabTest','tabProduction','tabPlanner','tabProfiles','tabFx'])$(id).onclick=()=>showTab(id);
 function formatInt(x){return Number(x).toLocaleString('it-IT',{maximumFractionDigits:0});}
 function subset(){return historyRows.slice(-historyDays);}
 function graphSvg(rows,key,kind){
@@ -205,5 +273,358 @@ function renderProduction(){
 }
 for(const id of ['prodBuilding','prodSearch','prodCount','prodEfficiency','prodCycles','prodFee','prodSort'])$(id).addEventListener('input',renderProduction);
 
+
+
+// v21: manual company profiles, market watchlist and chronological queue planner.
+const V21_KEY='verdant-horizons-planner-v21';let v21={stocks:{},jobs:[],profiles:[],activeProfile:''};
+try{const data=JSON.parse(localStorage.getItem(V21_KEY)||'{}');if(data&&typeof data==='object'){v21.stocks=data.stocks&&typeof data.stocks==='object'?data.stocks:{};v21.jobs=Array.isArray(data.jobs)?data.jobs:[];v21.profiles=Array.isArray(data.profiles)?data.profiles:[];v21.activeProfile=String(data.activeProfile||'');}}catch(_){}
+const saveV21=()=>{try{localStorage.setItem(V21_KEY,JSON.stringify(v21));}catch(e){$('planSummary').textContent='Non è stato possibile salvare i dati sul dispositivo.';}};
+const nQty=x=>Number.isFinite(Number(x))?Number(x):0;
+const safeText=s=>escapeHTML(String(s??''));
+function recipeLabel(r){return r.building+' · '+(r.outputs.map(p=>p.amount+' '+p.ticker).join(' + ')||r.name)+' ← '+r.inputs.map(p=>p.amount+' '+p.ticker).join(' + ');}
+function plannerRecipes(){
+ const el=$('planRecipe'),old=el.value,search=($('planRecipeSearch').value||'').trim().toLowerCase();
+ el.replaceChildren();const first=document.createElement('option');first.value='';first.textContent='Seleziona una ricetta FIO';el.append(first);
+ const all=fioRecipes.filter(r=>r.valid),matched=all.filter(r=>!search||[r.building,r.name,...r.inputs.map(x=>x.ticker),...r.outputs.map(x=>x.ticker),...r.outputs.map(x=>materials.get(x.ticker)||''),...r.inputs.map(x=>materials.get(x.ticker)||'')].join(' ').toLowerCase().includes(search)).sort((a,b)=>recipeLabel(a).localeCompare(recipeLabel(b)));
+ for(const r of matched.slice(0,250)){const o=document.createElement('option');o.value=String(r.id);o.textContent=recipeLabel(r)+(r.hours?'':' · durata da inserire');el.append(o);}
+ if([...el.options].some(o=>o.value===old))el.value=old;
+ $('planRecipeCount').textContent=all.length?matched.length+' ricette trovate'+(matched.length>250?' (prime 250 mostrate)':''):'Nessuna ricetta caricata: premi Aggiorna.';
+}
+const prevLoadRecipes=loadRecipes;loadRecipes=async function(){await prevLoadRecipes();plannerRecipes();};
+$('planRecipeSearch').addEventListener('input',plannerRecipes);
+$('planRecipe').addEventListener('change',()=>{const r=fioRecipes.find(x=>String(x.id)===$('planRecipe').value);if(r&&r.hours)$('planDuration').value=hoursAsClock(r.hours);});
+$('planCustom').addEventListener('change',()=>{$('planCustomFields').hidden=!$('planCustom').checked;$('planRecipe').disabled=$('planCustom').checked;$('planRecipeSearch').disabled=$('planCustom').checked;});
+function hoursAsClock(hours){const total=Math.round(Number(hours)*60);return `${Math.floor(total/60)}:${String(total%60).padStart(2,'0')}`;}
+function readPlannerHours(value){const s=String(value??'').trim().toLowerCase();if(!s)return null;const clock=s.match(/^(\d+)\s*:\s*([0-5]?\d)$/);if(clock)return Number(clock[1])+Number(clock[2])/60;const hm=s.match(/^(\d+)\s*h(?:\s*(\d{1,2})\s*m?)?$/);if(hm){if(Number(hm[2]||0)>=60)return NaN;return Number(hm[1])+Number(hm[2]||0)/60;}const dec=s.replace(',','.');if(/^\d+(?:\.\d+)?$/.test(dec))return Number(dec);return NaN;}
+function syncPlannerTimeFields(){$('planDurationLabel').hidden=false;$('planRepeatLabel').hidden=false;}
+$('planState').addEventListener('change',syncPlannerTimeFields);syncPlannerTimeFields();
+function parsePlanParts(value){if(!value.trim())return [];return value.split(',').map(piece=>{const m=piece.trim().match(/^([0-9]+(?:[.,][0-9]+)?)\s*[x×]?\s*([A-Za-z0-9]{1,16})$/);if(!m)throw Error('Formato non valido: '+piece.trim());const amount=Number(m[1].replace(',','.'));if(!(amount>0))throw Error('Quantità non positiva');return {ticker:m[2].toUpperCase(),amount};});}
+function renderStocks(){$('planStockList').innerHTML=Object.entries(v21.stocks).sort().map(([t,q])=>`<div class="plan-entry"><div class="row"><span><strong>${safeText(t)}</strong> · ${money(q)} unità</span><button class="secondary" data-remove-stock="${safeText(t)}">Rimuovi</button></div></div>`).join('')||'<div class="hint">Nessuna scorta impostata.</div>';}
+$('planAddStock').onclick=()=>{const t=code($('planStockTicker').value),q=Number($('planStockQty').value);if(!/^[A-Z0-9]{1,16}$/.test(t)||!Number.isFinite(q)||q<0){$('planSummary').textContent='Inserisci codice materiale e quantità valida (≥0).';return;}v21.stocks[t]=q;saveV21();renderStocks();};
+$('planStockList').onclick=e=>{const t=e.target.closest('[data-remove-stock]')?.dataset.removeStock;if(t){delete v21.stocks[t];saveV21();renderStocks();}};
+function renderJobs(){$('planJobList').innerHTML=v21.jobs.map((j,i)=>`<div class="plan-entry"><div class="row"><span><strong>${safeText(j.line)}</strong> · ${j.state==='active'?'Attivo':'In coda'} · ${safeText(j.label)}<small>${j.state==='active'?'Fine fra '+hoursAsClock(j.at)+' · durata ciclo '+money(j.duration)+' h · ': 'Dopo ordini precedenti · durata ciclo '+hoursAsClock(j.duration)+' · '}${j.repeat} ciclo/i</small></span><button data-delete-job="${i}" class="secondary">Rimuovi</button></div></div>`).join('')||'<div class="hint">Nessuna produzione impostata.</div>';}
+$('planAddJob').onclick=()=>{const custom=$('planCustom').checked;let r=fioRecipes.find(x=>String(x.id)===$('planRecipe').value);if(custom){try{const inputs=parsePlanParts($('planCustomInputs').value),outputs=parsePlanParts($('planCustomOutputs').value);if(!outputs.length)throw Error('Inserisci almeno un prodotto finale');r={inputs,outputs,building:'MAN',name:'Produzione manuale'};}catch(e){$('planSummary').textContent=e.message;return;}}const line=$('planLine').value.trim(),state=$('planState').value,duration=readPlannerHours($('planDuration').value),at=state==='active'?duration:0,repeat=Number($('planRepeat').value);if(!r||!line||!Number.isFinite(duration)||duration<=0||!Number.isFinite(at)||at<(state==='active'?0.01:0)|| (state==='active'&&at>duration+1e-8)||!Number.isInteger(repeat)||repeat<1||repeat>30){$('planSummary').textContent='Controlla ricetta, linea e tempi. Scrivi 8:50 per 8 ore e 50 minuti. La durata deve essere positiva.';return;}const jobs=v21.jobs.filter(j=>j.line===line);if(state==='active'&&jobs.length){$('planSummary').textContent='Un ordine già in lavorazione deve essere il primo della propria linea.';return;}const summary=state==='active'?`Linea ${line}\nGià in lavorazione: terminerà fra ${hoursAsClock(at)} (ore:minuti) — ciclo completo simulato.\nDurata dei cicli: ${money(duration)} ore; cicli complessivi (incluso quello attivo): ${repeat}.\nOutput: ${r.outputs.map(p=>money(p.amount)+' '+p.ticker).join(', ')}\nGli input non saranno sottratti di nuovo.`:`Linea ${line}\nIn coda: inizia dopo gli ordini precedenti della linea e quando i materiali sono disponibili.\nDurata ciclo: ${money(duration)} ore; cicli: ${repeat}.\nInput per ciclo: ${r.inputs.map(p=>money(p.amount)+' '+p.ticker).join(', ')||'nessuno'}.\nOutput per ciclo: ${r.outputs.map(p=>money(p.amount)+' '+p.ticker).join(', ')}.`;if(!confirm('Confermi questa produzione?\n\n'+summary))return;v21.jobs.push({line,state,at,duration,repeat,label:recipeLabel(r),inputs:r.inputs,outputs:r.outputs});saveV21();renderJobs();};
+$('planJobList').onclick=e=>{const i=e.target.closest('[data-delete-job]')?.dataset.deleteJob;if(i!==undefined){v21.jobs.splice(Number(i),1);saveV21();renderJobs();}};
+$('planClear').onclick=()=>{if(!confirm('Vuoi cancellare scorte e code del Planner?'))return;v21.stocks={};v21.jobs=[];saveV21();renderStocks();renderJobs();$('planSummary').textContent='Pianificazione cancellata.';$('planTimeline').replaceChildren();};
+function runPlanner(){const horizon=Number($('planHours').value),stock={...v21.stocks},events=[],lines=new Map(),trace=[],warnings=[];for(const [i,j]of v21.jobs.entries()){if(!lines.has(j.line))lines.set(j.line,[]);lines.get(j.line).push({...j,idx:i,remaining:j.repeat});}let time=0;const busy=new Map(),complete=[];for(let round=0;round<4000;round++){let changed=false;
+ // Complete all productions reaching the same timestamp before attempting new starts.
+ for(let i=complete.length-1;i>=0;i--){const e=complete[i];if(e.time>time+1e-7)continue;complete.splice(i,1);for(const p of e.job.outputs)stock[p.ticker]=(stock[p.ticker]||0)+p.amount;busy.delete(e.job.line);trace.push({time,kind:'done',label:e.job.line+' · '+e.job.label,stock:{...stock}});changed=true;}
+ for(const [line,queue]of lines){const j=queue[0];if(!j||busy.has(line)||time+1e-7<j.at)continue;if(j.state==='active'){busy.set(line,true);complete.push({time:time+j.at*0+ (j.at-time>=0?j.at-time:0),job:j});j.state='active-running';changed=true;continue;}if(j.state==='active-running')continue;const lacking=j.inputs.filter(p=>(stock[p.ticker]||0)+1e-9<p.amount).map(p=>p.ticker+' '+money(p.amount-(stock[p.ticker]||0)));if(lacking.length){if(!j.reported){warnings.push({time,line,missing:lacking.join(', '),label:j.label});j.reported=true;}continue;}for(const p of j.inputs)stock[p.ticker]=(stock[p.ticker]||0)-p.amount;busy.set(line,true);complete.push({time:time+j.duration,job:j});trace.push({time,kind:'start',label:line+' · '+j.label,stock:{...stock}});changed=true;}
+ // Dequeue completed jobs only; each repeated cycle comes next in its line.
+ for(const [line,q]of lines){while(q.length&&q[0].remaining===0){q.shift();changed=true;}}
+ if(changed){ // fix completed job advancement by identifying consumed completions.
+ }const nextTimes=[...complete.map(e=>e.time),...([...lines].flatMap(([line,q])=>!busy.has(line)&&q[0]&&q[0].at>time+1e-7?[q[0].at]:[]))].filter(t=>t>time+1e-7&&t<=horizon+1e-7);if(!nextTimes.length)break;time=Math.min(...nextTimes);}
+ return {stock,trace,warnings,horizon};}
+// Event engine, using per-line cursors: initial active orders have inputs already consumed.
+function simulateQueues(){const horizon=Number($('planHours').value),stocks={...v21.stocks},queues=new Map(),pending=[],timeline=[],blocks=new Map(),delays=[];for(const j of v21.jobs){const x={...j,at:j.state==='active'?j.at:0,inputs:j.inputs.map(p=>({...p})),outputs:j.outputs.map(p=>({...p})),left:j.repeat};if(!queues.has(j.line))queues.set(j.line,[]);queues.get(j.line).push(x);}const busy=new Set();let now=0;for(let iteration=0;iteration<5000;iteration++){for(let i=pending.length-1;i>=0;i--){const p=pending[i];if(p.at>now+1e-7)continue;pending.splice(i,1);for(const out of p.j.outputs)stocks[out.ticker]=(stocks[out.ticker]||0)+out.amount;busy.delete(p.j.line);timeline.push({at:now,type:'end',msg:p.j.line+' · fine '+p.j.label});p.j.left--;if(p.j.left===0)queues.get(p.j.line).shift();else {p.j.state='queued';p.j.at=0;}}
+ let didStart=false;for(const [line,q]of queues){const j=q[0];if(!j||busy.has(line)||false)continue;if(j.state==='active'){busy.add(line);pending.push({at:j.at,j}); /* Inputs already consumed; ETA absolute. */ timeline.push({at:now,type:'active',msg:line+' · già in lavorazione '+j.label});didStart=true;continue;}
+ const deficit=j.inputs.filter(p=>(stocks[p.ticker]||0)+1e-8<p.amount).map(p=>p.ticker+': '+money(p.amount-(stocks[p.ticker]||0)));if(deficit.length){if(!blocks.has(line)){blocks.set(line,{at:now,line,what:j.label,missing:deficit.join(' · ')});}continue;}if(blocks.has(line)){const b=blocks.get(line);delays.push({...b,until:now});blocks.delete(line);}for(const p of j.inputs)stocks[p.ticker]=(stocks[p.ticker]||0)-p.amount;busy.add(line);pending.push({at:now+j.duration,j});timeline.push({at:now,type:'start',msg:line+' · avvio '+j.label});didStart=true;}
+ if(didStart)continue;const candidates=[...pending.map(p=>p.at), ].filter(t=>t>now+1e-7&&t<=horizon+1e-7);if(!candidates.length)break;now=Math.min(...candidates);}
+ return {stocks,timeline,blocks:[...blocks.values()],delays,horizon};}
+$('planRun').onclick=()=>{if(!v21.jobs.length){$('planSummary').textContent='Aggiungi almeno una produzione.';return;}const r=simulateQueues();$('planSummary').innerHTML=(r.blocks.length||r.delays.length)?'<strong style="color:#ffb7aa">Rilevati '+(r.blocks.length+r.delays.length)+' blocchi o ritardi produttivi.</strong>':'<strong style="color:#aaff72">Nessun blocco rilevato nelle code simulate.</strong>';$('planTimeline').innerHTML=[...r.delays,...r.blocks].map(b=>`<div class="plan-entry plan-alert"><strong>⚠ ${safeText(b.line)} · fermo dalle +${money(b.at)} h</strong><small>${safeText(b.what)} · Mancano: ${safeText(b.missing)}${b.until!==undefined?' · ripartita a +'+money(b.until)+' h':' · ancora bloccata'}</small></div>`).join('')+r.timeline.sort((a,b)=>a.at-b.at).map(e=>`<div class="plan-entry ${e.type==='end'?'plan-good':''}"><strong>+${money(e.at)} h</strong> · ${safeText(e.msg)}</div>`).join('')+'<div class="plan-entry">Scorte simulate finali: '+Object.entries(r.stocks).sort().map(([t,q])=>safeText(t)+' '+money(q)).join(' · ')+'</div>';};
+function renderProfiles(){$('profileList').innerHTML=v21.profiles.map((p,i)=>`<div class="plan-entry"><div class="row"><span><strong>${safeText(p.name)}</strong>${v21.activeProfile===p.name?' · ATTIVO':''}<small>${safeText(p.planet)} · ${safeText(p.buildings)} · ${safeText(p.watch.join(', '))}</small></span><button data-pick-profile="${i}">Apri</button><button data-remove-profile="${i}" class="secondary">Elimina</button></div></div>`).join('')||'<div class="hint">Nessun profilo salvato.</div>';renderWatchlist();}
+$('profileSave').onclick=()=>{const name=$('profileName').value.trim();if(!name){alert('Inserisci il nome azienda.');return;}const p={name,planet:$('profilePlanet').value.trim(),buildings:$('profileBuildings').value.trim(),fioUser:$('profileFioUser').value.trim(),watch:[...new Set($('profileWatch').value.toUpperCase().split(/[,; ]+/).filter(t=>/^[A-Z0-9]{1,16}$/.test(t)))].slice(0,60)};const i=v21.profiles.findIndex(x=>x.name.toLowerCase()===name.toLowerCase());if(i>=0)v21.profiles[i]=p;else v21.profiles.push(p);v21.activeProfile=p.name;vhDash.selected=p.name;dashSave();saveV21();renderProfiles();};
+$('profileList').onclick=e=>{const take=e.target.closest('[data-pick-profile]'),drop=e.target.closest('[data-remove-profile]');if(take){const p=v21.profiles[Number(take.dataset.pickProfile)];v21.activeProfile=p.name;$('profileName').value=p.name;$('profilePlanet').value=p.planet;$('profileBuildings').value=p.buildings;$('profileWatch').value=p.watch.join(', ');$('profileFioUser').value=p.fioUser||'';vhDash.selected=p.name;dashSave();saveV21();renderProfiles();}else if(drop){const i=Number(drop.dataset.removeProfile);if(!confirm('Eliminare questo profilo locale?'))return;v21.profiles.splice(i,1);if(!v21.profiles.some(x=>x.name===v21.activeProfile))v21.activeProfile='';saveV21();renderProfiles();}};
+function renderWatchlist(){const p=v21.profiles.find(x=>x.name===v21.activeProfile),area=$('watchlist');if(!p){area.textContent='Seleziona o salva un profilo aziendale.';return;}if(!p.watch.length){area.textContent='Aggiungi i codici dei prodotti seguiti nel profilo.';return;}area.innerHTML=p.watch.map(t=>{const m=current.find(x=>x.ticker===t);return `<div class="plan-entry"><strong>${safeText(t)}</strong> · ${safeText(materials.get(t)||'')}<small>${m?'Bid '+money(m.bid)+' · Ask '+money(m.ask)+' · Supply '+safeText(m.supply)+' · Demand '+safeText(m.demand):'Quotazione non disponibile nel mercato selezionato: premi Aggiorna.'}</small></div>`;}).join('');}
+renderStocks();renderJobs();renderProfiles();$('exchange').addEventListener('change',renderWatchlist);const oldDesc=describe;describe=function(){oldDesc();renderWatchlist();};
+
+
+// v22: company dashboard and price-based scenario ledger. Local settings only.
+const VH_DASH_KEY='verdant-horizons-dashboard-v22';
+let vhDash={scenarios:{},selected:''};
+try{const value=JSON.parse(localStorage.getItem(VH_DASH_KEY)||'{}');if(value&&typeof value==='object'){vhDash.scenarios=value.scenarios&&typeof value.scenarios==='object'?value.scenarios:{};vhDash.selected=String(value.selected||'');}}catch(_){}
+function dashScenario(){const key=$('dashProfile').value||'__private';if(!vhDash.scenarios[key])vhDash.scenarios[key]={lines:[],wages:0,transport:0,fees:0,other:0};return vhDash.scenarios[key];}
+function dashSave(){try{localStorage.setItem(VH_DASH_KEY,JSON.stringify(vhDash));}catch(_){$('dashDataStatus').textContent='Memorizzazione non disponibile: esporta i dati prima di cancellare il browser.';}}
+function dashProfiles(){const select=$('dashProfile'),was=vhDash.selected||v21.activeProfile||select.value;select.innerHTML='<option value="">Scenario senza profilo</option>';for(const p of v21.profiles){const o=document.createElement('option');o.value=p.name;o.textContent=p.name;select.appendChild(o);}select.value=[...select.options].some(o=>o.value===was)?was:'';vhDash.selected=select.value;dashFields();}
+function dashFields(){const s=dashScenario();for(const f of ['wages','transport','fees','other'])$('dash'+f[0].toUpperCase()+f.slice(1)).value=s[f]??0;renderDashboard();}
+function dashRecipes(){const sel=$('dashRecipe'),was=sel.value;sel.replaceChildren(new Option('Seleziona una ricetta',''));for(const r of fioRecipes.filter(x=>x.valid&&x.hours).sort((a,b)=>recipeLabel(a).localeCompare(recipeLabel(b))))sel.append(new Option(recipeLabel(r),String(r.id)));if([...sel.options].some(o=>o.value===was))sel.value=was;renderDashboard();}
+$('dashProfile').onchange=()=>{vhDash.selected=$('dashProfile').value;if(vhDash.selected&&v21.profiles.some(p=>p.name===vhDash.selected)){v21.activeProfile=vhDash.selected;saveV21();renderProfiles();}dashSave();dashFields();};
+for(const f of ['wages','transport','fees','other']){$('dash'+f[0].toUpperCase()+f.slice(1)).addEventListener('input',()=>{const x=Number($('dash'+f[0].toUpperCase()+f.slice(1)).value);dashScenario()[f]=Number.isFinite(x)?Math.max(0,x):0;dashSave();renderDashboard();});}
+$('dashPeriod').onchange=renderDashboard;
+$('dashAdd').onclick=()=>{const r=fioRecipes.find(x=>String(x.id)===$('dashRecipe').value),count=Math.floor(Number($('dashCount').value)),eff=Number($('dashEfficiency').value);if(!r||!r.hours){alert('Seleziona una ricetta con durata nota.');return;}if(!Number.isInteger(count)||count<1||count>1000||!Number.isFinite(eff)||eff<=0||eff>500){alert('Controlla numero edifici ed efficienza.');return;}dashScenario().lines.push({recipeId:r.id,count,eff});dashSave();renderDashboard();};
+$('dashLines').onclick=e=>{const btn=e.target.closest('[data-dash-remove]');if(!btn)return;dashScenario().lines.splice(Number(btn.dataset.dashRemove),1);dashSave();renderDashboard();};
+function dashNum(n){return Number.isFinite(n)?money(n):'—'}
+function renderDashboard(){const s=dashScenario(),market=$('exchange').value;const period=$('dashPeriod').value||'day';const factors={minute:1/1440,hour:1/24,day:1,week:7,month:30},factor=factors[period]||1;const currency={IC1:'ICA',AI1:'AIC',CI1:'CIS',CI2:'CIS',NC1:'NCC',NC2:'NCC'}[market]||'valuta Exchange';const known=Boolean(current.length&&fioRecipes.length);$('dashDataStatus').textContent=known?`Dati disponibili: ${fioRecipes.length} ricette FIO · ${current.length} quotazioni ${market} · calcoli in ${currency}.`: 'Premi Aggiorna: il bilancio richiede ricette FIO e quotazioni dell’Exchange selezionato.';
+let rev=0,inputs=0,valid=true,used=0;const rows=[];
+$('dashLines').innerHTML=s.lines.map((l,i)=>{const r=l.manualRecipe||fioRecipes.find(x=>x.id===l.recipeId),label=r?recipeLabel(r):'Ricetta non caricata';return `<div class="plan-entry dash-lines-row"><span><strong>${safeText(label)}</strong><small>${l.count} edifici · efficienza ${l.eff}%</small></span><button class="secondary" data-dash-remove="${i}">Rimuovi</button></div>`;}).join('')||'<div class="hint">Aggiungi una produzione per costruire il bilancio.</div>';
+for(const l of s.lines){const r=l.manualRecipe||fioRecipes.find(x=>x.id===l.recipeId);if(!r||!r.hours){valid=false;continue;}const rate=l.count*(24/r.hours)*(l.eff/100),c=r.inputs.map(x=>({...x,price:prodPrice(x.ticker,'ask')})),o=r.outputs.map(x=>({...x,price:prodPrice(x.ticker,'bid')}));const complete=c.every(x=>x.price!==null)&&o.length&&o.every(x=>x.price!==null);if(!complete){valid=false;rows.push({label:recipeLabel(r),rate,revenue:null,cost:null,margin:null});continue;}const cost=rate*c.reduce((sum,x)=>sum+x.amount*x.price,0),revenue=rate*o.reduce((sum,x)=>sum+x.amount*x.price,0);rev+=revenue;inputs+=cost;used++;rows.push({label:recipeLabel(r),rate,revenue,cost,margin:revenue-cost});}
+const extras=['wages','transport','fees','other'].reduce((a,k)=>a+(Number(s[k])||0),0);const full=valid&&known&&s.lines.length>0;const p=rev-inputs-extras;const widgets=[['Ricavi potenziali',rev],['Costo materie prime',inputs],['Spese aggiuntive',extras],['Margine stimato',p]];$('dashSummary').innerHTML='<div class="dash-kpis">'+widgets.map(([label,n],i)=>`<div class="dash-kpi ${i===3?(p<0?'dash-loss':'dash-total'):''}"><small>${label}</small><strong class="${!full?'dash-unknown':''}">${full?dashNum(n*factor)+' '+currency:'—'}</strong></div>`).join('')+'</div>';
+$('dashBreakdown').innerHTML='<b>Dettaglio e ipotesi</b>'+(s.lines.length?`<div class="dash-table"><table><thead><tr><th>Ricetta</th><th>Cicli/giorno</th><th>Ricavi/giorno</th><th>Input/giorno</th><th>Margine/giorno</th></tr></thead><tbody>${rows.map(row=>`<tr><td>${safeText(row.label)}</td><td>${dashNum(row.rate)}</td><td>${row.revenue===null?'n.d.':dashNum(row.revenue)}</td><td>${row.cost===null?'n.d.':dashNum(row.cost)}</td><td>${row.margin===null?'n.d.':dashNum(row.margin)}</td></tr>`).join('')}</tbody></table></div>`:'<p class="micro-note">Non ci sono produzioni in questo scenario.</p>')+(full?`<p class="micro-note">Margine/ricavi: ${rev>0?money(p/rev*100)+'%':'non calcolabile'}. Quantità giornaliere teoriche continue; il periodo selezionato è scalato linearmente. I costi inseriti sono per giorno.</p>`:'<p class="micro-note dash-unknown">Bilancio non calcolabile: aggiungi produzioni e carica quotazioni Bid/Ask complete per tutti gli input e output. Le spese non vengono interpretate come zero se mancano dati di mercato.</p>');}
+const dashOriginalRecipes=loadRecipes;loadRecipes=async function(){await dashOriginalRecipes();dashRecipes();};
+const dashOriginalDescribe=describe;describe=function(){dashOriginalDescribe();renderDashboard();};
+const dashOriginalProfiles=renderProfiles;renderProfiles=function(){dashOriginalProfiles();dashProfiles();};
+dashRecipes();dashProfiles();
+
+// Navigation and durable local preferences (no automatic product selection).
+const VH_PREF_KEY='verdant-horizons-pref-v20';
+function openNav(open){const drawer=$('navDrawer'),shade=$('navShade');drawer.classList.toggle('open',open);drawer.setAttribute('aria-hidden',String(!open));shade.hidden=!open;$('menuToggle').setAttribute('aria-expanded',String(open));if(open)$('menuClose').focus();else $('menuToggle').focus();}
+$('menuToggle').addEventListener('click',()=>openNav(true));$('menuClose').addEventListener('click',()=>openNav(false));$('navShade').addEventListener('click',()=>openNav(false));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('navDrawer').classList.contains('open'))openNav(false)});
+const vhTabIds=['tabDashboard','tabMarkets','tabAnalysis','tabTest','tabProduction','tabPlanner','tabProfiles','tabFx'];
+const vhOldShowTab=showTab;
+showTab=function(name){vhOldShowTab(name);document.querySelectorAll('[data-nav]').forEach(b=>{if(b.dataset.nav===name)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});};
+document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>{showTab(b.dataset.nav);openNav(false);window.scrollTo({top:0,behavior:'instant'})}));
+for(const id of vhTabIds){$(id).addEventListener('click',()=>{document.querySelectorAll('[data-nav]').forEach(b=>{if(b.dataset.nav===id)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})});}
+const vhPrefIds=['prodCount','prodEfficiency','prodCycles','prodFee','prodSort','advDays','fxFrom','fxTo','fxAmount','fxRate'];
+try{const saved=JSON.parse(localStorage.getItem(VH_PREF_KEY)||'{}');for(const id of vhPrefIds){if(Object.prototype.hasOwnProperty.call(saved,id)){const el=$(id);if(el&&typeof saved[id]==='string'&&saved[id].length<80){if(el.tagName!=='SELECT'||Array.from(el.options).some(o=>o.value===saved[id]))el.value=saved[id];}}}}catch(_){}
+function vhSavePrefs(){try{const saved={};for(const id of vhPrefIds)saved[id]=$(id).value;localStorage.setItem(VH_PREF_KEY,JSON.stringify(saved));}catch(_){}}
+for(const id of vhPrefIds)$(id).addEventListener('change',vhSavePrefs);
+
+// v28 local company integration. No private FIO endpoints are queried without authorization.
+function v28ProfileInfo(){const p=v21.profiles.find(x=>x.name===v21.activeProfile);const status=$('fioProfileStatus');if(!status)return;if(!p){status.textContent='Nessun profilo selezionato.';return;}status.textContent='Profilo: '+p.name+' · Identificativo FIO: '+(p.fioUser||'non impostato')+' · dati privati non collegati.';}
+const v28OldRenderProfiles=renderProfiles;
+renderProfiles=function(){v28OldRenderProfiles();v28ProfileInfo();};
+$('profileBackup').onclick=()=>{const data={format:'verdant-horizons-backup',version:28,exportedAt:new Date().toISOString(),profiles:v21.profiles,activeProfile:v21.activeProfile,stocks:v21.stocks,jobs:v21.jobs,dashboard:vhDash};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='verdant-horizons-backup.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);};
+$('profileRestore').onchange=async e=>{const file=e.target.files?.[0];e.target.value='';if(!file)return;if(file.size>2e6){alert('Backup troppo grande (limite 2 MB).');return;}try{const b=JSON.parse(await file.text());if(b?.format!=='verdant-horizons-backup'||!Array.isArray(b.profiles)||b.profiles.length>100||!Array.isArray(b.jobs)||b.jobs.length>2000||!b.dashboard||typeof b.dashboard!=='object'||!b.stocks||typeof b.stocks!=='object'){throw Error('Formato backup non valido');}if(!confirm('Sostituire i profili, le scorte, le code e gli scenari locali con quelli del backup?'))return;v21.profiles=b.profiles.filter(p=>p&&typeof p.name==='string'&&p.name.length<=60).map(p=>({name:p.name,planet:String(p.planet||'').slice(0,60),buildings:String(p.buildings||'').slice(0,500),fioUser:String(p.fioUser||'').slice(0,80),watch:Array.isArray(p.watch)?p.watch.filter(x=>typeof x==='string'&&/^[A-Z0-9]{1,16}$/.test(x)).slice(0,60):[]}));v21.activeProfile=v21.profiles.some(p=>p.name===b.activeProfile)?b.activeProfile:'';v21.stocks=Object.fromEntries(Object.entries(b.stocks).filter(([k,v])=>/^[A-Z0-9]{1,16}$/.test(k)&&Number.isFinite(v)&&v>=0));v21.jobs=b.jobs;vhDash.scenarios=b.dashboard.scenarios&&typeof b.dashboard.scenarios==='object'?b.dashboard.scenarios:{};vhDash.selected=v21.activeProfile;saveV21();dashSave();renderStocks();renderJobs();renderProfiles();dashFields();alert('Backup importato. Controlla i dati del profilo.');}catch(err){alert('Importazione non riuscita: '+err.message);}};
+const v28ProfileClicks=$('profileList');v28ProfileClicks.addEventListener('click',()=>{setTimeout(()=>{const p=v21.profiles.find(x=>x.name===v21.activeProfile);$('profileFioUser').value=p?.fioUser||'';v28ProfileInfo();},0)});
+const v28OldProfileSave=$('profileSave').onclick;$('profileSave').onclick=()=>{v28OldProfileSave();v28ProfileInfo();};
+renderProfiles();
+
+// Select the current tab for accessibility, without ever preselecting a commodity.
+showTab('tabMarkets');
+
 if('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost')) navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+
+// v29: one profile-owned planning context for dashboard and planner.
+// Existing v28 global stocks/jobs migrate to active profile on first use.
+const VH_COMPANY_DATA_KEY='verdant-horizons-company-data-v29';
+const VH_NO_PROFILE='__unassigned';
+let vhCompanyData={};
+try{const parsed=JSON.parse(localStorage.getItem(VH_COMPANY_DATA_KEY)||'{}');if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed))vhCompanyData=parsed;}catch(_){}
+const vhCompanyKey=()=>v21.activeProfile||VH_NO_PROFILE;
+let vhLoadedCompanyKey=vhCompanyKey();
+function vhSaveCompanies(){try{localStorage.setItem(VH_COMPANY_DATA_KEY,JSON.stringify(vhCompanyData));}catch(_){}}
+function vhValidCompanyState(v){return v&&typeof v==='object'&&!Array.isArray(v)&&v.stocks&&typeof v.stocks==='object'&&!Array.isArray(v.stocks)&&Array.isArray(v.jobs);}
+function vhSnapshotCompany(key=vhLoadedCompanyKey){
+ vhCompanyData[key]={stocks:structuredClone(v21.stocks),jobs:structuredClone(v21.jobs)};
+ vhSaveCompanies();
+}
+function vhLoadCompany(key){
+ const st=vhCompanyData[key];
+ v21.stocks=vhValidCompanyState(st)?structuredClone(st.stocks):{};
+ v21.jobs=vhValidCompanyState(st)?structuredClone(st.jobs):[];
+ vhLoadedCompanyKey=key;saveV21();renderStocks();renderJobs();
+ $('planSummary').textContent='Scorte e produzioni del profilo selezionato.';
+ $('planTimeline').replaceChildren();vhShowCompanyContext();
+}
+// First-run migration of pre-v29 stocks and jobs, preserving original data.
+if(!vhValidCompanyState(vhCompanyData[vhLoadedCompanyKey]))vhSnapshotCompany(vhLoadedCompanyKey);
+else vhLoadCompany(vhLoadedCompanyKey);
+function vhSwitchCompany(){const key=vhCompanyKey();if(key!==vhLoadedCompanyKey){vhSnapshotCompany();vhLoadCompany(key);}vhShowCompanyContext();}
+function vhShowCompanyContext(){
+ const p=v21.profiles.find(x=>x.name===v21.activeProfile);
+ const name=p?.name||'Senza profilo';
+ const stocks=Object.keys(v21.stocks).length, jobs=v21.jobs.length;
+ const raw=p?.buildings||'';
+ const units=[...raw.matchAll(/\b([A-Za-z]{2,5})\s*(?:[x×*:]\s*(\d+)|\s+(\d+))\b/g)].map(m=>(m[1]||'').toUpperCase()+' ×'+(m[2]||m[3]));
+ const desc= (p?.planet?p.planet+' · ':'') + (units.length?units.join(' · '):(raw||'Edifici non configurati'));
+ const text=name+' · '+desc+' · '+stocks+' materiali nelle scorte · '+jobs+' ordini Planner.';
+ $('companyContextInfo').textContent=text;
+ $('plannerCompanyBanner').textContent='Profilo: '+name+' · '+stocks+' materiali · '+jobs+' ordini. Scorte e code sono separate per azienda.';
+}
+function vhCaptureCompanyChanges(id){const el=$(id);const old=el.onclick;el.onclick=function(ev){const result=old?.call(this,ev);vhSnapshotCompany();vhShowCompanyContext();return result;};}
+for(const id of ['planAddStock','planClear','planAddJob'])vhCaptureCompanyChanges(id);
+for(const id of ['planStockList','planJobList']){const el=$(id),old=el.onclick;el.onclick=function(ev){const result=old?.call(this,ev);vhSnapshotCompany();vhShowCompanyContext();return result;};}
+// profileList runs its original selector first, then update the in-memory context.
+$('profileList').addEventListener('click',e=>{
+ const pick=e.target.closest('[data-pick-profile]');
+ const drop=e.target.closest('[data-remove-profile]');
+ if(pick||drop){ // This click handler runs after original onclick; snapshots of old scope were saved on each change.
+  vhSwitchCompany();
+ }
+});
+const vh29OldProfileSave=$('profileSave').onclick;
+$('profileSave').onclick=function(e){vh29OldProfileSave?.call(this,e);vhSwitchCompany();};
+const vh29OldDashChange=$('dashProfile').onchange;
+$('dashProfile').onchange=function(e){vh29OldDashChange?.call(this,e);vhSwitchCompany();};
+$('companyOpenPlanner').onclick=()=>showTab('tabPlanner');
+$('companyOpenProfiles').onclick=()=>showTab('tabProfiles');
+// Unified portable backup, backwards compatible with v28 format.
+$('profileBackup').onclick=()=>{
+ vhSnapshotCompany();
+ const data={format:'verdant-horizons-backup',version:29,exportedAt:new Date().toISOString(),profiles:v21.profiles,activeProfile:v21.activeProfile,stocks:v21.stocks,jobs:v21.jobs,companyData:vhCompanyData,dashboard:vhDash};
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='verdant-horizons-backup-v29.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);
+};
+const vh29OldRestore=$('profileRestore').onchange;
+$('profileRestore').onchange=async function(e){
+ const file=e.target.files?.[0];if(!file)return;
+ let extra=null;
+ try{const b=JSON.parse(await file.text());if(b?.format==='verdant-horizons-backup'&&b.companyData&&typeof b.companyData==='object'&&!Array.isArray(b.companyData))extra=b.companyData;}catch(_){}
+ await vh29OldRestore.call(this,{target:{files:[file],value:''}});
+ if(extra){const valid={};for(const [key,entry]of Object.entries(extra)){if(key.length>80&&key!==VH_NO_PROFILE)continue;if(!vhValidCompanyState(entry))continue;valid[key]={stocks:entry.stocks,jobs:entry.jobs.slice(0,2000)};}vhCompanyData=valid;}
+ else vhCompanyData={[vhCompanyKey()]:{stocks:structuredClone(v21.stocks),jobs:structuredClone(v21.jobs)}};
+ vhLoadedCompanyKey=vhCompanyKey();vhSaveCompanies();vhSwitchCompany();vhShowCompanyContext();
+};
+vhShowCompanyContext();
+
+
+// v30: profile-owned facility overview, guarded one-way Planner -> Dashboard snapshot.
+function vh30Buildings(raw){
+ const out={};const text=String(raw||'');
+ for(const m of text.matchAll(/\b([A-Za-z]{2,5})\s*(?:[xX×*:=-]\s*(\d+)|\s+(\d+))\b/g)){
+  const key=m[1].toUpperCase(),n=Number(m[2]||m[3]);if(Number.isInteger(n)&&n>0&&n<=1000)out[key]=(out[key]||0)+n;
+ }
+ return out;
+}
+function vh30PartsEqual(a,b){
+ const canonical=x=>(Array.isArray(x)?x:[]).map(z=>String(z.ticker||'')+':'+Number(z.amount)).sort().join('|');
+ return canonical(a)===canonical(b);
+}
+function vh30MatchRecipe(j){
+ if(!j||!Array.isArray(j.inputs)||!Array.isArray(j.outputs)||String(j.label||'').startsWith('MAN ·'))return null;
+ const matched=fioRecipes.filter(r=>r.valid&&r.hours>0&&vh30PartsEqual(r.inputs,j.inputs)&&vh30PartsEqual(r.outputs,j.outputs));
+ return matched.length===1?matched[0]:null;
+}
+function vh30BuildContext(){
+ const p=v21.profiles.find(x=>x.name===$('dashProfile').value);
+ const el=$('dashCompanyFacilities'),rev=$('dashPlannerReview');
+ if(!p){el.textContent='Nessun profilo aziendale selezionato. Le simulazioni restano disponibili senza profilo.';rev.textContent='';return;}
+ const b=vh30Buildings(p.buildings),entries=Object.entries(b);
+ el.textContent=entries.length?'Edifici registrati: '+entries.map(([k,n])=>k+' ×'+n).join(' · '):'Non riesco a leggere gli edifici dal profilo. Formato suggerito: FRM x2, RIG x2, FP x1.';
+ const st=vhCompanyData[p.name]||{jobs:[],stocks:{}};
+ const all=st.jobs||[];const recognized=all.filter(j=>vh30MatchRecipe(j));const manual=all.filter(j=>!vh30MatchRecipe(j)&&Array.isArray(j.outputs)&&j.outputs.length&&Number(j.duration)>0);
+ rev.textContent=`Planner: ${all.length} ordini · ${Object.keys(st.stocks||{}).length} materiali · ${recognized.length} ordini FIO e ${manual.length} ordini manuali importabili. Gli ordini senza durata non vengono importati.`;
+}
+function vh30ImportPlanner(){
+ const name=$('dashProfile').value;
+ if(!name){alert('Seleziona prima un profilo aziendale.');return;}
+ const p=v21.profiles.find(x=>x.name===name);if(!p){alert('Profilo aziendale non trovato.');return;}
+ const state=vhCompanyData[name]||{jobs:[]};
+ const jobs=state.jobs||[];const buildings=vh30Buildings(p.buildings);const selected=[],unmatched=[];
+ const grouped=new Map();
+ for(const j of jobs){
+  let r=vh30MatchRecipe(j);let isManual=false;
+  if(!r&&Number(j.duration)>0&&Array.isArray(j.outputs)&&j.outputs.length&&Array.isArray(j.inputs)){
+   isManual=true;r={id:null,building:'MAN',name:'Manuale · '+String(j.line||'Linea'),hours:Number(j.duration),inputs:j.inputs,outputs:j.outputs};
+  }
+  if(!r||!r.hours||!(r.hours>0)){unmatched.push(j.line||j.label||'Ordine');continue;}
+  const id=String(j.line||'Linea senza nome')+'::'+(isManual?'MAN:'+JSON.stringify([r.inputs,r.outputs]):String(r.id));
+  if(!grouped.has(id))grouped.set(id,{r,line:String(j.line||'Linea'),job:j,isManual});
+ }
+ for(const {r,line,isManual} of grouped.values()){
+  // A Planner line represents a single productive line, not necessarily all buildings of its type.
+  selected.push({recipeId:r.id,count:1,eff:100,origin:isManual?'planner-manual':'planner',line,...(isManual?{manualRecipe:r}:{})});
+ }
+ if(!selected.length){alert('Nessuna produzione con ingredienti, output e durata valida da copiare dal Planner.');return;}
+ const warning=`Importare ${selected.length} produzioni di linea nello scenario di ${name}? Saranno considerate produzioni teoriche continue (1 edificio e 100% efficienza per riga), NON la quantità delle code. ${unmatched.length} ordini senza dati sufficienti saranno ignorati. Le produzioni MAN sono ipotesi manuali. Lo scenario precedente verrà sostituito, ma il Planner resterà invariato.`;
+ if(!confirm(warning))return;
+ const s=dashScenario();s.lines=selected;dashSave();renderDashboard();vh30BuildContext();
+ alert('Scenario copiato. Le produzioni MAN sono stime manuali: controlla durata, output, efficienza e prezzi prima di interpretare i margini.');
+}
+$('dashImportPlanner').onclick=vh30ImportPlanner;
+$('dashClearScenario').onclick=()=>{if(!confirm('Svuotare soltanto le produzioni della Dashboard? Le code del Planner non cambieranno.'))return;dashScenario().lines=[];dashSave();renderDashboard();};
+const vh30OriginalDashRender=renderDashboard;
+renderDashboard=function(){vh30OriginalDashRender();vh30BuildContext();};
+const vh30OriginalProfileSelect=$('dashProfile').onchange;
+$('dashProfile').onchange=function(ev){vh30OriginalProfileSelect?.call(this,ev);vh30BuildContext();};
+const vh30OldProfileSave=$('profileSave').onclick;
+$('profileSave').onclick=function(ev){vh30OldProfileSave?.call(this,ev);vh30BuildContext();};
+// Original data model stays untouched: profiles and Planner remain separate from scenario snapshots.
+vh30BuildContext();
+
+
+function renderHomeSummary(){
+  if(typeof v21==='undefined')return;
+  const name=v21.activeProfile||'';
+  const p=(v21.profiles||[]).find(x=>x.name===name);
+  const setText=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val;};
+  setText('homeCompany',name||'Nessuna azienda selezionata');
+  setText('homePlanet',p?(p.planet||'Pianeta non indicato'):'Apri Profili e crea o seleziona un’azienda.');
+  setText('homeBuildings',p&&p.buildings?'Edifici: '+p.buildings:'Edifici non configurati');
+  const stocks=v21.stocks||{}; const entries=Object.entries(stocks).filter(([k,v])=>Number(v)>0);
+  setText('homeStocks',entries.length?'Scorte salvate: '+entries.slice(0,10).map(([k,v])=>k+' '+v).join(' · ')+(entries.length>10?' · …':''):'Nessuna scorta positiva registrata');
+  const jobs=Array.isArray(v21.jobs)?v21.jobs:[];
+  setText('homeJobs','Ordini nel Planner: '+jobs.length+' · '+jobs.slice(0,3).map(j=>j.line||j.lineName||j.building||'Linea').join(', '));
+}
+for(const [id,tab] of [['homeToPlanner','tabPlanner'],['homeToBalance','tabBilancio'],['homeToProfiles','tabProfiles']]){
+ const el=document.getElementById(id);if(el)el.onclick=()=>showTab(tab);
+}
+
+// Verdant Horizons v33 — FIO authenticated connection test.
+// Security constraints: no key in localStorage, sessionStorage, backup, logs, URL or HTML constants.
+// All network calls are GET to a fixed trusted API host. No data mutation from this test.
+let vhFioKey='';
+let vhFioTestRunning=false;
+let vhFioSnapshot=null; // In-memory only. Imported data are not copied to Planner automatically.
+const vhFioKeyField=$('fioSessionKey');
+const vhFioStatus=$('fioConnectionStatus');
+const vhFioResults=$('fioConnectionResults');
+function vhFioSay(message,kind){vhFioStatus.textContent=message;vhFioStatus.style.borderColor=kind==='error'?'#be6460':kind==='ok'?'#3a927f':'#44617c';}
+function vhFioClearResults(){vhFioResults.replaceChildren();}
+function vhFioDisconnect(){vhFioKey='';vhFioSnapshot=null;vhFioKeyField.value='';vhFioClearResults();vhFioSay('Scollegato. Nessuna chiave è conservata in questa app.');}
+$('fioDisconnect').addEventListener('click',vhFioDisconnect);
+// Switching the company must not silently reuse a key and import another user's data.
+$('profileList').addEventListener('click',evt=>{if(evt.target.closest('[data-pick-profile]'))vhFioDisconnect();});
+function vhFioSummary(data){
+ if(data==null)return 'Nessun dato disponibile';
+ if(Array.isArray(data))return data.length+' elementi';
+ if(typeof data==='object'){
+  const ks=Object.keys(data);
+  const inner=ks.filter(k=>Array.isArray(data[k])).map(k=>k+': '+data[k].length);
+  return inner.length?inner.slice(0,5).join(' · '):ks.length+' campi';
+ }
+ return 'Risposta ricevuta';
+}
+function vhFioShape(data){
+ if(Array.isArray(data)){
+  const elem=data.find(x=>x!==null&&typeof x==='object');
+  return elem?'Campi disponibili: '+Object.keys(elem).slice(0,9).join(', '):'Lista senza strutture da analizzare';
+ }
+ if(data&&typeof data==='object')return 'Campi disponibili: '+Object.keys(data).slice(0,9).join(', ');
+ return 'Dati non strutturati';
+}
+function vhFioCard(label,desc,detail,good){
+ const el=document.createElement('div');el.className='fio-result';
+ const heading=document.createElement('strong');heading.textContent=label;
+ const txt=document.createElement('div');txt.textContent=desc;
+ const small=document.createElement('small');small.textContent=detail||'';
+ el.append(heading,txt,small);if(good===false)el.style.borderColor='#a56d53';vhFioResults.append(el);
+}
+async function vhFioGet(path,key){
+ const controller=new AbortController();
+ const timeout=setTimeout(()=>controller.abort(),18000);
+ try{
+  const response=await fetch('https://rest.fnar.net'+path,{method:'GET',headers:{'Authorization':key,'Accept':'application/json'},mode:'cors',credentials:'omit',cache:'no-store',redirect:'error',referrerPolicy:'no-referrer',signal:controller.signal});
+  if(response.status===204)return {status:204,data:null};
+  if(!response.ok)return {status:response.status,data:null};
+  const contentType=response.headers.get('content-type')||'';
+  if(contentType.toLowerCase().includes('json'))return {status:response.status,data:await response.json()};
+  const responseText=await response.text();
+  try{return {status:response.status,data:JSON.parse(responseText)}}catch(_){return {status:response.status,data:responseText.slice(0,300)}}
+ }finally{clearTimeout(timeout)}
+}
+async function vhFioRunTest(){
+ if(vhFioTestRunning)return;
+ const profile=v21.profiles.find(x=>x.name===v21.activeProfile);
+ if(!profile){vhFioSay('Seleziona o crea prima un profilo in Profili e preferiti.','error');return;}
+ const user=String($('profileFioUser').value||profile.fioUser||'').trim();
+ if(!user){vhFioSay('Inserisci lo username FIO usato nel gioco e premi «Salva profilo».','error');return;}
+ if(user!==String(profile.fioUser||'')){vhFioSay('Prima salva lo username FIO nel profilo aziendale tramite «Salva profilo».','error');return;}
+ const key=vhFioKeyField.value.trim()||vhFioKey;
+ if(!/^[a-fA-F0-9-]{32,36}$/.test(key)){vhFioSay('Chiave non valida nel formato. Incolla la chiave API FIO completa, senza condividerla in chat.','error');return;}
+ vhFioKey=key;vhFioKeyField.value=''; // Never leave token in visible DOM input.
+ vhFioTestRunning=true;$('fioTestConnection').disabled=true;vhFioClearResults();vhFioSnapshot=null;
+ vhFioSay('Verifico la chiave API su FIO…');
+ try{
+  const auth=await vhFioGet('/auth',key);
+  if(auth.status!==200){vhFioSay('FIO non ha autenticato la chiave (HTTP '+auth.status+'). Controlla la chiave nella pagina Settings FIO.','error');return;}
+  vhFioSay('Chiave riconosciuta. Leggo soltanto i dati del tuo account FIO…','ok');
+  const endpoints=[['Basi ed edifici','/sites/'+encodeURIComponent(user)],['Magazzini','/storage/'+encodeURIComponent(user)],['Produzioni e code','/production/'+encodeURIComponent(user)]];
+  const outcomes=await Promise.all(endpoints.map(async ([label,path])=>{
+   try{return {label,...await vhFioGet(path,key)}}
+   catch(e){return {label,status:0,error:e.name==='AbortError'?'Richiesta scaduta.':'Connessione fallita o limitazione CORS del browser.'}}
+  }));
+  vhFioSnapshot={profile:profile.name,username:user,downloadedAt:new Date().toISOString(),datasets:{}};
+  let ready=0;
+  for(const out of outcomes){
+   if(out.status===200){vhFioSnapshot.datasets[out.label]=out.data;vhFioCard(out.label,vhFioSummary(out.data),vhFioShape(out.data),true);ready++;}
+   else if(out.status===204)vhFioCard(out.label,'Nessun dato inviato a FIO','Probabilmente il client FIO non ha ancora raccolto questa schermata di gioco.',false);
+   else vhFioCard(out.label,'Non disponibile',out.error||('HTTP '+out.status+' · dati non presenti o non autorizzati.'),false);
+  }
+  vhFioSay('Collegamento riuscito · '+ready+'/3 raccolte dati disponibili. La v33 non modifica ancora il profilo, le scorte o le code. Dati consultati '+new Date().toLocaleTimeString('it-IT')+'.','ok');
+ }catch(e){
+  vhFioSay((e.name==='AbortError'?'La richiesta a FIO è scaduta.':'Connessione non riuscita. Possibili cause: assenza di rete, CORS o restrizioni del browser.')+' Prova la PWA pubblicata su HTTPS.','error');
+ }finally{vhFioTestRunning=false;$('fioTestConnection').disabled=false;}
+}
+$('fioTestConnection').addEventListener('click',vhFioRunTest);
 </script></body></html>
