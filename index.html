@@ -100,8 +100,17 @@ input,select{font-size: .93rem;min-height:43px;padding:9px 10px}
 .home-actions button{flex:1 1 135px;min-width:0;font-size:.86rem;white-space:normal}
 @media(max-width:380px){.home-summary-grid{grid-template-columns:1fr}.home-summary-tile.home-wide{grid-column:auto}}
 .nav-shade[hidden]{display:none!important}
-</style></head><body><div class="app-topbar"><button id="menuToggle" class="menu-toggle secondary" aria-label="Apri menu di navigazione" aria-controls="navDrawer" aria-expanded="false"><span aria-hidden="true">☰</span><span>Menu</span></button><div class="app-top-label">VERDANT <em>HORIZONS</em><small>APEX EDITION · v34</small></div><span class="app-top-right">FIO · MARKET</span></div>
-<div id="navShade" class="nav-shade" hidden></div><aside id="navDrawer" class="nav-drawer" aria-label="Navigazione principale" aria-hidden="true"><div class="nav-head"><strong>VERDANT HORIZONS</strong><button id="menuClose" class="secondary nav-close" aria-label="Chiudi menu">✕</button></div><div class="nav-caption">STRUMENTI</div><nav class="nav-list"><button data-nav="tabDashboard">▣ <span>Dashboard</span></button><button data-nav="tabBilancio">▤ <span>Bilancio</span></button><button data-nav="tabMarkets" aria-current="page">▦ <span>Mercati</span></button><button data-nav="tabAnalysis">▥ <span>Analisi</span></button><button data-nav="tabTest">▤ <span>ADV · Grafici</span></button><button data-nav="tabProduction">⚙ <span>PROD · Ricette</span></button><button data-nav="tabPlanner">◷ <span>Planner · Code</span></button><button data-nav="tabProfiles">▣ <span>Profili e preferiti</span></button><button data-nav="tabFx">⇄ <span>Cambi</span></button></nav><div class="nav-foot">Dati pubblici FIO · Strumento non ufficiale</div></aside><h1>Verdant Horizons <span style="font-size:.8rem;color:#a7b8c8;font-weight:400">v34 · APEX Edition</span></h1><p class="sub">Mercati e produzione · Prosperous Universe · FIO</p><section class="panel"><div class="controls"><label for="exchange">Exchange<select id="exchange"><option value="">Carica elenco mercati con Aggiorna</option></select></label><button id="update">Aggiorna</button><button id="export" class="secondary" disabled>Scarica CSV</button></div><div id="status" role="status">Premi «Aggiorna» per identificare i mercati e caricare le quotazioni pubbliche FIO.</div><div class="kpis"><span id="n">Prodotti: —</span><span id="date">Scaricato: —</span><span id="age">Data prezzi FIO: non disponibile</span></div></section><div class="tabs" role="tablist" aria-label="Schermate"><button id="tabDashboard" role="tab" aria-selected="false">Dashboard</button><button id="tabBilancio" role="tab" aria-selected="false">Bilancio</button><button id="tabMarkets" role="tab" aria-selected="true">Mercati</button><button id="tabAnalysis" role="tab" aria-selected="false">Analisi</button><button id="tabTest" role="tab" aria-selected="false">ADV</button><button id="tabProduction" role="tab" aria-selected="false">PROD</button><button id="tabPlanner" role="tab" aria-selected="false">Planner</button><button id="tabProfiles" role="tab" aria-selected="false">Profili</button><button id="tabFx" role="tab" aria-selected="false">Cambi</button></div><div id="dashboardView" class="none"><section class="panel home-overview">
+
+/* v35: section-first navigation with isolated tap handlers */
+body>h1,body>p.sub{display:none}
+.vh-section-name{margin:12px 0 9px;padding:5px 0 7px 11px;border-left:4px solid #f5a900;font-size:1.17rem;font-weight:800;color:#eef5fc;letter-spacing:.015em}
+.nav-drawer{overflow:hidden}.nav-list{min-height:0;overflow-y:auto;overscroll-behavior:contain;flex:1 1 auto;padding:1px 2px 12px}
+.nav-foot{display:flex;flex-direction:column;gap:9px;margin-top:auto;flex-shrink:0}
+.nav-foot .vh-refresh{font-size:.75rem;padding:9px;margin:0;text-align:center}
+#vhMarketToolbar.none{display:none!important}
+@media(max-width:620px){.app-topbar{margin-bottom:3px}.vh-section-name{font-size:1.11rem;margin-top:8px}#vhMarketToolbar{margin-top:7px}}
+</style></head><body><div class="app-topbar"><button id="menuToggle" class="menu-toggle secondary" aria-label="Apri menu di navigazione" aria-controls="navDrawer" aria-expanded="false"><span aria-hidden="true">☰</span><span>Menu</span></button><div class="app-top-label">VERDANT <em>HORIZONS</em><small>APEX EDITION · v35</small></div><span class="app-top-right">FIO · MARKET</span></div>
+<div id="navShade" class="nav-shade" hidden></div><aside id="navDrawer" class="nav-drawer" aria-label="Navigazione principale" aria-hidden="true"><div class="nav-head"><strong>VERDANT HORIZONS</strong><button id="menuClose" class="secondary nav-close" aria-label="Chiudi menu">✕</button></div><div class="nav-caption">STRUMENTI</div><nav class="nav-list"><button data-nav="tabDashboard">▣ <span>Dashboard</span></button><button data-nav="tabBilancio">▤ <span>Bilancio</span></button><button data-nav="tabMarkets" aria-current="page">▦ <span>Mercati</span></button><button data-nav="tabAnalysis">▥ <span>Analisi</span></button><button data-nav="tabTest">▤ <span>ADV · Grafici</span></button><button data-nav="tabProduction">⚙ <span>PROD · Ricette</span></button><button data-nav="tabPlanner">◷ <span>Planner · Code</span></button><button data-nav="tabProfiles">▣ <span>Profili e preferiti</span></button><button data-nav="tabFx">⇄ <span>Cambi</span></button></nav><div class="nav-foot"><span>Dati pubblici FIO · Strumento non ufficiale</span><button type="button" id="vhRefreshApp" class="secondary vh-refresh">Aggiorna app</button></div></aside><h1>Verdant Horizons <span style="font-size:.8rem;color:#a7b8c8;font-weight:400">v35 · APEX Edition</span></h1><p class="sub">Mercati e produzione · Prosperous Universe · FIO</p><div id="vhActiveSection" class="vh-section-name" role="heading" aria-level="2" aria-live="polite">Mercati</div><section id="vhMarketToolbar" class="panel"><div class="controls"><label for="exchange">Exchange<select id="exchange"><option value="">Carica elenco mercati con Aggiorna</option></select></label><button id="update">Aggiorna</button><button id="export" class="secondary" disabled>Scarica CSV</button></div><div id="status" role="status">Premi «Aggiorna» per identificare i mercati e caricare le quotazioni pubbliche FIO.</div><div class="kpis"><span id="n">Prodotti: —</span><span id="date">Scaricato: —</span><span id="age">Data prezzi FIO: non disponibile</span></div></section><div class="tabs" role="tablist" aria-label="Schermate"><button id="tabDashboard" role="tab" aria-selected="false">Dashboard</button><button id="tabBilancio" role="tab" aria-selected="false">Bilancio</button><button id="tabMarkets" role="tab" aria-selected="true">Mercati</button><button id="tabAnalysis" role="tab" aria-selected="false">Analisi</button><button id="tabTest" role="tab" aria-selected="false">ADV</button><button id="tabProduction" role="tab" aria-selected="false">PROD</button><button id="tabPlanner" role="tab" aria-selected="false">Planner</button><button id="tabProfiles" role="tab" aria-selected="false">Profili</button><button id="tabFx" role="tab" aria-selected="false">Cambi</button></div><div id="dashboardView" class="none"><section class="panel home-overview">
   <div class="home-topline"><div><div class="home-eyebrow">PANORAMICA AZIENDA</div><h2 id="homeCompany">Nessuna azienda selezionata</h2><p id="homePlanet" class="micro-note">Apri Profili e seleziona un'azienda.</p></div><span class="home-symbol" aria-hidden="true">▣</span></div>
   <div class="home-summary-grid">
     <div class="home-summary-tile"><b>Edifici</b><div id="homeBuildings" class="home-detail">Edifici non configurati</div></div>
@@ -652,4 +661,68 @@ async function vhFioRunTest(){
  }finally{vhFioTestRunning=false;$('fioTestConnection').disabled=false;}
 }
 $('fioTestConnection').addEventListener('click',vhFioRunTest);
+</script>
+<script id="vhNavigationRescue">
+(function(){
+ 'use strict';
+ const tabs={tabDashboard:['dashboardView','Dashboard'],tabBilancio:['bilancioView','Bilancio'],tabMarkets:['marketsView','Mercati'],tabAnalysis:['analysisView','Analisi'],tabTest:['testView','ADV · Grafici'],tabProduction:['productionView','PROD · Ricette'],tabPlanner:['plannerView','Planner · Code'],tabProfiles:['profilesView','Profili e preferiti'],tabFx:['fxView','Cambi']};
+ function goToSection(id){
+   if(!Object.prototype.hasOwnProperty.call(tabs,id))return;
+   // Render helpers are optional; navigation never depends on their success.
+   try{if(typeof showTab==='function')showTab(id);}catch(err){console.warn('Rendering parziale della sezione',id,err);}
+   for(const [tab,[view]] of Object.entries(tabs)){
+     const panel=document.getElementById(view),trigger=document.getElementById(tab);
+     if(panel)panel.classList.toggle('none',id!==tab);
+     if(trigger)trigger.setAttribute('aria-selected',String(tab===id));
+   }
+   const toolbar=document.getElementById('vhMarketToolbar');
+   if(toolbar)toolbar.classList.toggle('none',id!=='tabMarkets');
+   const heading=document.getElementById('vhActiveSection');
+   if(heading)heading.textContent=tabs[id][1];
+   document.querySelectorAll('#navDrawer [data-nav]').forEach(b=>{
+     if(b.dataset.nav===id)b.setAttribute('aria-current','page');
+     else b.removeAttribute('aria-current');
+   });
+   closeDrawer();
+   try{window.scrollTo(0,0);}catch(_){}
+ }
+ function closeDrawer(){
+   const drawer=document.getElementById('navDrawer');
+   const shade=document.getElementById('navShade');
+   const toggle=document.getElementById('menuToggle');
+   if(drawer){drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');}
+   if(shade)shade.hidden=true;
+   if(toggle)toggle.setAttribute('aria-expanded','false');
+ }
+ function openDrawer(){
+   const drawer=document.getElementById('navDrawer');
+   const shade=document.getElementById('navShade');
+   const toggle=document.getElementById('menuToggle');
+   if(drawer){drawer.classList.add('open');drawer.setAttribute('aria-hidden','false');}
+   if(shade)shade.hidden=false;
+   if(toggle)toggle.setAttribute('aria-expanded','true');
+ }
+ // Capture clicks before earlier navigation listeners: one deterministic handler.
+ document.addEventListener('click',function(e){
+   const target=e.target;
+   if(!(target instanceof Element))return;
+   const nav=target.closest('#navDrawer [data-nav]');
+   if(nav){e.preventDefault();e.stopImmediatePropagation();goToSection(nav.dataset.nav);return;}
+   const button=target.closest('#menuToggle,#menuClose,#navShade');
+   if(button){e.preventDefault();e.stopImmediatePropagation();button.id==='menuToggle'?openDrawer():closeDrawer();return;}
+   const appUpdate=target.closest('#vhRefreshApp');
+   if(appUpdate){e.preventDefault();e.stopImmediatePropagation();refreshApp();return;}
+ },true);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
+ async function refreshApp(){
+   const button=document.getElementById('vhRefreshApp');if(button){button.disabled=true;button.textContent='Aggiornamento…';}
+   try{
+     if('caches' in window){for(const k of await caches.keys()){if(k.startsWith('verdant-market-'))await caches.delete(k);}}
+     if('serviceWorker' in navigator){const registration=await navigator.serviceWorker.getRegistration();if(registration)await registration.update();}
+   }catch(err){console.warn('Aggiornamento cache non completo',err);}
+   const url=new URL(location.href);url.searchParams.set('appver','35');url.searchParams.set('r',Date.now().toString());location.replace(url.href);
+ }
+ // The currently displayed view is the market view on startup.
+ goToSection('tabMarkets');
+})();
 </script></body></html>
